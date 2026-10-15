@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Che Si Mangia?</title>
+<meta name="description" content="Idee per pranzo e cena, menu della settimana e i posti giusti a New York.">
+<meta name="theme-color" content="#F4EEE3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15120E" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Che Si Mangia?">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4EEE3; --card:#FFFCF6; --ink:#211C16; --muted:#7D7466; --line:#E6DDCD;
+  --accent:#D2452B; --accent-ink:#FFFFFF; --accent-soft:#F7DED6;
+  --olive:#5E6F33; --olive-soft:#E4E8D3; --gold:#C8902E;
+  --shadow:0 1px 2px rgba(60,40,20,.06),0 6px 20px rgba(60,40,20,.06);
+  --r:18px;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15120E; --card:#201C17; --ink:#F3EDE2; --muted:#A79D8E; --line:#332D25;
+    --accent:#EE6A4E; --accent-ink:#1A0F0A; --accent-soft:#3A2119;
+    --olive:#A7B979; --olive-soft:#2A2F1E; --gold:#E0AC4E;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45}
+body{padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+input,select{font:inherit;color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+header.top{display:flex;align-items:flex-end;justify-content:space-between;padding:18px 0 8px}
+.brand{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.02em;line-height:1}
+.brand span{color:var(--accent)}
+.ver{font-size:11px;color:var(--muted);letter-spacing:.04em;padding-bottom:4px}
+.sub{color:var(--muted);font-size:14px;margin:2px 0 14px}
+h2{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;margin:22px 0 10px}
+h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:18px 0 8px;font-weight:600}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);border:1px solid var(--line)}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.seg button{flex:1;padding:9px 10px;border-radius:999px;font-weight:600;font-size:15px;color:var(--muted)}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--muted);white-space:nowrap}
+.chip.on{background:var(--olive-soft);border-color:var(--olive);color:var(--ink);font-weight:600}
+.scroll-x{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px}
+.scroll-x::-webkit-scrollbar{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 18px;border-radius:14px;font-weight:600;font-size:15px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:var(--card);border:1px solid var(--line)}
+.btn.block{width:100%}
+.row{display:flex;gap:10px}
+.row>.btn{flex:1}
+.filters{padding:14px;margin-top:12px}
+.filters summary{list-style:none;display:flex;justify-content:space-between;align-items:center;font-weight:600;cursor:pointer}
+.filters summary::-webkit-details-marker{display:none}
+.filters summary small{color:var(--muted);font-weight:400}
+.idea{padding:22px 20px 20px;margin-top:14px;position:relative;overflow:hidden}
+.idea .kicker{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.idea .name{font-family:var(--display);font-size:30px;line-height:1.08;font-weight:700;letter-spacing:-.02em;margin:10px 0 8px}
+.idea p{margin:0 0 14px;color:var(--ink);opacity:.85}
+.meta{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);align-items:center}
+.dots{display:inline-flex;gap:3px;vertical-align:middle}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block}
+.dots i.f{background:var(--accent)}
+.fav{position:absolute;top:16px;right:16px;font-size:22px;line-height:1;padding:6px}
+.alts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.alt{padding:12px;text-align:left}
+.alt .n{font-weight:600;font-size:15px;line-height:1.2;margin:4px 0}
+.alt small{color:var(--muted);font-size:12px}
+.pop{animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.97);opacity:.4}to{transform:none;opacity:1}}
+.day{padding:4px 0;margin-bottom:12px}
+.day.today{border-color:var(--accent)}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;padding:10px 14px 4px}
+.dayhead b{font-family:var(--display);font-size:18px}
+.dayhead small{color:var(--accent);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.slot{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line)}
+.slot:first-of-type{border-top:0}
+.slot .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);width:46px;flex:none}
+.slot .main{flex:1;min-width:0;text-align:left}
+.slot .main .n{font-weight:600;line-height:1.25}
+.slot .main small{color:var(--muted);font-size:12px}
+.ico{width:36px;height:36px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:17px;flex:none;color:var(--muted)}
+.ico.on{background:var(--accent-soft);color:var(--accent)}
+.list .item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line);text-align:left;width:100%}
+.list .item:first-child{border-top:0}
+.flag{font-size:22px;width:30px;text-align:center;flex:none}
+.item .n{font-weight:600;line-height:1.25}
+.item small{color:var(--muted);font-size:12px}
+.search{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);outline:none}
+.search:focus{border-color:var(--olive)}
+.place{padding:16px;margin-bottom:10px}
+.place .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.place .n{font-family:var(--display);font-size:20px;font-weight:700;line-height:1.15}
+.place .where{font-size:13px;color:var(--muted);margin-top:2px}
+.place .why{margin:10px 0 8px;font-size:15px}
+.place .order{font-size:14px;background:var(--olive-soft);border-radius:10px;padding:8px 10px}
+.place .acts{display:flex;gap:8px;margin-top:12px}
+.place .acts a{flex:1;text-align:center;text-decoration:none;color:var(--ink);padding:10px;border-radius:12px;border:1px solid var(--line);font-size:14px;font-weight:600}
+.badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:8px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.note{font-size:12px;color:var(--muted);margin:14px 0}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:20}
+nav.tabs .in{max-width:560px;margin:0 auto;display:flex}
+nav.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px;color:var(--muted);font-weight:600}
+nav.tabs button .e{font-size:22px;line-height:1.1;filter:grayscale(1);opacity:.7}
+nav.tabs button.on{color:var(--accent)}
+nav.tabs button.on .e{filter:none;opacity:1}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet-bg.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;max-height:92vh;overflow-y:auto;background:var(--bg);border-radius:24px 24px 0 0;transform:translateY(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1),visibility 0s .28s;visibility:hidden;padding:10px 0 calc(24px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+.sheet.open{transform:none;visibility:visible;transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 6px}
+.sheet .close{position:sticky;top:0;float:right;margin:0 12px 0 0;width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--line);font-size:16px}
+.rhead .name{font-family:var(--display);font-size:28px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:6px 0 8px}
+.ing{padding:4px 0}
+.ing label{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border-top:1px solid var(--line)}
+.ing label:first-child{border-top:0}
+.ing input{width:20px;height:20px;accent-color:var(--olive);margin:1px 0 0;flex:none}
+.ing .q{color:var(--muted);font-size:14px;margin-left:auto;text-align:right;white-space:nowrap;padding-left:8px}
+.ing input:checked~span{text-decoration:line-through;opacity:.5}
+.steps{counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding:0 0 14px 42px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.empty{padding:28px 18px;text-align:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:all .25s;z-index:40;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+select.mini{padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);flex:1;min-width:0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Che Si Mangia<span>?</span></div>
+    <div class="ver" id="ver"></div>
+  </header>
+  <main id="view"></main>
+  <footer id="foot"></footer>
+</div>
+
+<nav class="tabs"><div class="in">
+  <button data-tab="idea"><span class="e">🎲</span>Idea</button>
+  <button data-tab="week"><span class="e">🗓️</span>Settimana</button>
+  <button data-tab="recipes"><span class="e">📖</span>Ricette</button>
+  <button data-tab="out"><span class="e">🍸</span>Fuori</button>
+</div></nav>
+
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const VERSION = "1.0.0";
+const RECIPES = [{"id":"ita01","n":"Spaghetti aglio, olio e peperoncino","c":"ita","d":1,"t":15,"m":"pc","s":"Il piatto di mezzanotte per eccellenza: tre ingredienti, zero stress.","i":["200 g|spaghetti","3 spicchi|aglio","1|peperoncino secco","5 cucchiai|olio extravergine d'oliva","1 ciuffo|prezzemolo","q.b.|sale"],"p":["Cuoci gli spaghetti in acqua salata.","Nel frattempo scalda l'olio a fuoco basso con aglio a fettine e peperoncino, senza far bruciare l'aglio.","Scola la pasta al dente tenendo un mestolo di acqua di cottura.","Salta la pasta nella padella con un po' d'acqua di cottura finché si forma una crema leggera, poi aggiungi prezzemolo tritato."]},{"id":"ita02","n":"Pasta al pomodoro e basilico","c":"ita","d":1,"t":20,"m":"pc","s":"Semplice, profumata, sempre giusta. Meglio con pomodori pelati di qualità.","i":["200 g|penne o spaghetti","400 g|pomodori pelati","1 spicchio|aglio","3 cucchiai|olio extravergine d'oliva","6 foglie|basilico","q.b.|parmigiano","q.b.|sale"],"p":["Rosola l'aglio nell'olio per un minuto, poi aggiungi i pelati schiacciati e un pizzico di sale.","Cuoci il sugo 15 minuti a fuoco medio.","Cuoci la pasta, scolala al dente e saltala nel sugo.","Spegni, aggiungi basilico spezzato a mano e parmigiano."]},{"id":"ita03","n":"Cacio e pepe","c":"ita","d":2,"t":15,"m":"pc","s":"Pecorino, pepe e tecnica: il segreto è la crema, non i grumi.","i":["200 g|tonnarelli o spaghetti","100 g|pecorino romano","2 cucchiaini|pepe nero","q.b.|sale"],"p":["Tosta il pepe macinato grosso in padella a secco per un minuto.","Grattugia finemente il pecorino e mescolalo in una ciotola con poca acqua tiepida fino a ottenere una pasta.","Cuoci la pasta in poca acqua poco salata, scolala al dente e mettila nella padella col pepe con un mestolo d'acqua di cottura.","Fuori dal fuoco aggiungi la crema di pecorino e manteca velocemente, aggiungendo acqua se serve."]},{"id":"ita04","n":"Spaghetti alla carbonara","c":"ita","d":2,"t":20,"m":"pc","s":"Guanciale croccante, tuorli e pecorino. Niente panna.","i":["200 g|spaghetti o rigatoni","100 g|guanciale","3|tuorli d'uovo","50 g|pecorino romano","q.b.|pepe nero","q.b.|sale"],"p":["Taglia il guanciale a listarelle e rosolalo in padella senza olio finché è croccante.","Sbatti i tuorli con il pecorino e tanto pepe.","Scola la pasta al dente e versala nella padella del guanciale, a fuoco spento.","Aggiungi la crema d'uovo con un po' di acqua di cottura e mescola rapidamente fino a renderla cremosa."]},{"id":"ita05","n":"Penne all'arrabbiata","c":"ita","d":1,"t":20,"m":"p","s":"Pomodoro, aglio e tanto peperoncino. Pranzo veloce con carattere.","i":["200 g|penne rigate","400 g|pomodori pelati","2 spicchi|aglio","1-2|peperoncino","3 cucchiai|olio extravergine d'oliva","1 ciuffo|prezzemolo","q.b.|sale"],"p":["Soffriggi aglio e peperoncino nell'olio.","Aggiungi i pelati, sala e cuoci 15 minuti.","Cuoci le penne, scolale al dente e saltale nel sugo.","Finisci con prezzemolo tritato."]},{"id":"ita06","n":"Risotto ai funghi","c":"ita","d":2,"t":35,"m":"c","s":"Cremoso e autunnale. Funghi champignon o misti vanno benissimo.","i":["160 g|riso carnaroli o arborio","300 g|funghi","1/2|cipolla","800 ml|brodo vegetale","1/2 bicchiere|vino bianco","30 g|burro","40 g|parmigiano","2 cucchiai|olio extravergine d'oliva"],"p":["Salta i funghi a fettine in padella con un filo d'olio, sala e tieni da parte.","Soffriggi la cipolla tritata nell'olio, aggiungi il riso e tostalo 2 minuti.","Sfuma col vino, poi aggiungi il brodo caldo un mestolo alla volta per circa 17 minuti.","A metà cottura unisci i funghi. Alla fine spegni e manteca con burro e parmigiano."]},{"id":"ita07","n":"Pollo alla cacciatora","c":"ita","d":2,"t":50,"m":"c","s":"Pollo in umido con pomodoro, olive e rosmarino. Comfort food da casa.","i":["4|sovracosce di pollo","1|cipolla","2 spicchi|aglio","400 g|pomodori pelati","1/2 bicchiere|vino rosso","50 g|olive nere","1 rametto|rosmarino","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Rosola il pollo nell'olio su tutti i lati, poi toglilo dalla pentola.","Nella stessa pentola soffriggi cipolla e aglio, sfuma col vino.","Aggiungi pelati, rosmarino e rimetti il pollo. Copri e cuoci 35 minuti a fuoco basso.","Negli ultimi 5 minuti aggiungi le olive e regola di sale."]},{"id":"ita08","n":"Caprese e bruschetta al pomodoro","c":"ita","d":1,"t":10,"m":"p","s":"Pranzo fresco senza accendere il fornello (quasi).","i":["250 g|mozzarella","2|pomodori maturi","4 fette|pane casereccio","1 spicchio|aglio","8 foglie|basilico","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Affetta mozzarella e pomodori e alternali nel piatto con basilico, olio e sale.","Tosta il pane e strofinalo con l'aglio.","Copri il pane con pomodoro a dadini condito con olio, sale e basilico."]},{"id":"ita09","n":"Frittata di zucchine","c":"ita","d":1,"t":20,"m":"p","s":"Uova, zucchine e parmigiano. Ottima anche fredda il giorno dopo.","i":["5|uova","2|zucchine","1/2|cipolla","40 g|parmigiano","2 cucchiai|olio extravergine d'oliva","q.b.|sale","q.b.|pepe nero"],"p":["Rosola cipolla e zucchine a rondelle in padella con l'olio per 8 minuti.","Sbatti le uova con parmigiano, sale e pepe.","Versa le uova sulle zucchine e cuoci a fuoco basso con coperchio per 6 minuti.","Gira la frittata aiutandoti con un piatto e cuoci altri 2 minuti."]},{"id":"ita10","n":"Saltimbocca alla romana","c":"ita","d":2,"t":20,"m":"c","s":"Fettine con prosciutto e salvia, sfumate al vino bianco. Pronte in un attimo.","i":["4|fettine di vitello o pollo","4 fette|prosciutto crudo","4 foglie|salvia","30 g|burro","1/2 bicchiere|vino bianco","2 cucchiai|farina","q.b.|sale"],"p":["Batti le fettine, appoggia su ognuna una fetta di prosciutto e una foglia di salvia, fissa con uno stuzzicadenti.","Infarina leggermente il lato senza prosciutto.","Rosola nel burro 2 minuti per lato.","Sfuma col vino e lascia restringere il fondo per un minuto."]},{"id":"ita11","n":"Pasta e ceci","c":"ita","d":1,"t":30,"m":"p","s":"Minestra densa e rustica, con i ceci in scatola diventa velocissima.","i":["150 g|ditalini o pasta mista","400 g|ceci in scatola","1 spicchio|aglio","1 rametto|rosmarino","1 cucchiaio|concentrato di pomodoro","700 ml|brodo vegetale","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Soffriggi aglio e rosmarino nell'olio, aggiungi il concentrato.","Unisci i ceci scolati e il brodo, cuoci 10 minuti.","Frulla metà dei ceci per rendere tutto cremoso.","Aggiungi la pasta e cuocila direttamente nella minestra, servi con un filo d'olio crudo."]},{"id":"ita12","n":"Lasagne alla bolognese","c":"ita","d":3,"t":150,"m":"c","s":"Il progetto della domenica: ragù, besciamella e pazienza.","i":["250 g|sfoglie per lasagne","400 g|carne macinata mista","1|cipolla","1|carota","1 costa|sedano","700 g|passata di pomodoro","1 bicchiere|vino rosso","1 l|latte","60 g|burro","60 g|farina","100 g|parmigiano","q.b.|noce moscata","q.b.|sale"],"p":["Soffriggi cipolla, carota e sedano tritati, aggiungi la carne e rosolala bene.","Sfuma col vino, aggiungi la passata e cuoci il ragù a fuoco basso almeno 1 ora.","Prepara la besciamella: sciogli il burro, aggiungi la farina, poi il latte caldo a filo mescolando fino a che si addensa. Sala e aggiungi noce moscata.","Alterna in teglia sfoglie, ragù, besciamella e parmigiano per 4-5 strati.","Cuoci in forno a 190°C per 35-40 minuti e lascia riposare 10 minuti."]},{"id":"ita13","n":"Parmigiana di melanzane","c":"ita","d":3,"t":90,"m":"c","s":"Melanzane, sugo, mozzarella e parmigiano a strati. Meglio ancora il giorno dopo.","i":["2|melanzane grandi","700 g|passata di pomodoro","250 g|mozzarella","80 g|parmigiano","1 spicchio|aglio","8 foglie|basilico","olio per friggere|olio di semi","q.b.|sale"],"p":["Affetta le melanzane a 5 mm, salale e lasciale riposare 30 minuti, poi asciugale.","Friggile in olio caldo (oppure grigliale per una versione più leggera).","Cuoci la passata con aglio, sale e basilico per 15 minuti.","Componi a strati in teglia: sugo, melanzane, mozzarella, parmigiano.","Inforna a 200°C per 30 minuti."]},{"id":"ita14","n":"Orecchiette con cime di rapa","c":"ita","d":2,"t":25,"m":"pc","s":"Il classico pugliese. Puoi sostituire le cime con broccoli (broccoli rabe a NY).","i":["200 g|orecchiette","500 g|cime di rapa","2 spicchi|aglio","3|filetti di acciuga","1|peperoncino","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Pulisci le cime tenendo foglie tenere e cimette.","Cuoci le cime nell'acqua salata insieme alle orecchiette.","In padella sciogli le acciughe nell'olio con aglio e peperoncino.","Scola pasta e verdure insieme e saltale nella padella."]},{"id":"mex01","n":"Tacos di pollo (tinga)","c":"mex","d":2,"t":35,"m":"c","s":"Pollo sfilacciato in salsa di pomodoro e chipotle dentro tortillas calde.","i":["2|petti di pollo","1|cipolla","2|pomodori","2|peperoncini chipotle in adobo","8|tortillas di mais","1|avocado","1|lime","1 ciuffo|coriandolo","2 cucchiai|olio di semi","q.b.|sale"],"p":["Lessa il pollo in acqua salata 20 minuti, poi sfilaccialo con due forchette.","Frulla pomodori e chipotle.","Soffriggi la cipolla a fettine, aggiungi la salsa e il pollo e cuoci 5 minuti.","Scalda le tortillas in padella e farciscile con pollo, avocado, coriandolo e lime."]},{"id":"mex02","n":"Quesadillas formaggio e funghi","c":"mex","d":1,"t":15,"m":"p","s":"Tortillas croccanti e formaggio filante. Pranzo da 15 minuti.","i":["4|tortillas di farina","150 g|formaggio tipo Monterey Jack o mozzarella","200 g|funghi","1/2|cipolla","1|jalapeño (facoltativo)","q.b.|salsa pico de gallo","1 cucchiaio|olio di semi"],"p":["Salta funghi e cipolla in padella con l'olio per 5 minuti.","Su metà tortilla metti formaggio, funghi e jalapeño, poi chiudi a mezzaluna.","Cuoci in padella asciutta 2 minuti per lato finché è dorata.","Taglia a spicchi e servi con salsa."]},{"id":"mex03","n":"Burrito bowl","c":"mex","d":1,"t":25,"m":"p","s":"Riso, fagioli neri, mais, avocado e salsa. Perfetto anche da portare al lavoro.","i":["150 g|riso","400 g|fagioli neri in scatola","150 g|mais","1|avocado","2|pomodori","1/2|cipolla rossa","1|lime","1 ciuffo|coriandolo","1 cucchiaino|cumino","q.b.|sale"],"p":["Cuoci il riso e condiscilo con succo di lime e coriandolo.","Scalda i fagioli con cumino e sale.","Prepara una salsa veloce con pomodori, cipolla, coriandolo, lime e sale.","Componi le ciotole con riso, fagioli, mais, salsa e avocado a fette."]},{"id":"mex04","n":"Huevos rancheros","c":"mex","d":1,"t":20,"m":"p","s":"Uova all'occhio di bue su tortillas con salsa di pomodoro piccante.","i":["4|uova","4|tortillas di mais","400 g|pomodori pelati","1/2|cipolla","1|jalapeño","200 g|fagioli refritos o neri","1|avocado","2 cucchiai|olio di semi","q.b.|sale"],"p":["Soffriggi cipolla e jalapeño, aggiungi i pomodori e cuoci 10 minuti per una salsa ranchera.","Scalda i fagioli.","Scalda le tortillas e friggi le uova.","Componi: tortilla, fagioli, uovo, salsa e avocado."]},{"id":"mex05","n":"Chili con carne","c":"mex","d":2,"t":60,"m":"c","s":"Stufato di manzo e fagioli speziato. Ottimo da fare in quantità.","i":["400 g|carne macinata di manzo","1|cipolla","2 spicchi|aglio","1|peperone rosso","400 g|pomodori pelati","400 g|fagioli rossi in scatola","2 cucchiaini|chili in polvere","1 cucchiaino|cumino","2 cucchiai|olio di semi","q.b.|sale"],"p":["Soffriggi cipolla, aglio e peperone a dadini.","Aggiungi la carne e rosolala, poi unisci spezie e sale.","Aggiungi pomodori e fagioli e cuoci coperto 40 minuti.","Servi con riso, panna acida o tortilla chips."]},{"id":"mex06","n":"Enchiladas verdi di pollo","c":"mex","d":3,"t":50,"m":"c","s":"Tortillas ripiene di pollo, coperte di salsa verde e formaggio, gratinate al forno.","i":["2|petti di pollo","8|tortillas di mais","500 g|tomatillos o salsa verde pronta","1|jalapeño","1/2|cipolla","1 ciuffo|coriandolo","150 g|formaggio grattugiato","100 ml|panna acida"],"p":["Lessa e sfilaccia il pollo.","Se usi i tomatillos, lessali 10 minuti e frullali con jalapeño, cipolla e coriandolo.","Scalda le tortillas, farciscile di pollo, arrotolale e mettile in teglia.","Copri con salsa verde e formaggio e inforna a 200°C per 20 minuti. Servi con panna acida."]},{"id":"mex07","n":"Fajitas di manzo","c":"mex","d":2,"t":30,"m":"c","s":"Strisce di manzo e peperoni saltati ad alta temperatura, da arrotolare a tavola.","i":["400 g|manzo (flank o skirt steak)","2|peperoni misti","1|cipolla","1|lime","1 cucchiaino|cumino","1 cucchiaino|paprika","6|tortillas di farina","2 cucchiai|olio di semi","q.b.|sale"],"p":["Marina il manzo a strisce con lime, spezie, olio e sale per almeno 15 minuti.","Salta peperoni e cipolla a fuoco alto finché sono leggermente bruciacchiati.","Nella stessa padella rosola la carne 2-3 minuti.","Servi tutto sfrigolante con tortillas calde, guacamole e panna acida."]},{"id":"mex08","n":"Sopa de tortilla","c":"mex","d":2,"t":35,"m":"c","s":"Zuppa di pomodoro e peperoncino con strisce di tortilla croccanti, avocado e formaggio.","i":["400 g|pomodori pelati","1|cipolla","2 spicchi|aglio","1|chile ancho o 1 cucchiaino di chili in polvere","800 ml|brodo di pollo","4|tortillas di mais","1|avocado","80 g|formaggio fresco","1|lime","2 cucchiai|olio di semi"],"p":["Frulla pomodori, cipolla, aglio e chile.","Cuoci il frullato in pentola con un filo d'olio per 5 minuti, poi aggiungi il brodo e cuoci 15 minuti.","Taglia le tortillas a strisce e dorale in padella o in forno.","Servi la zuppa con tortillas, avocado, formaggio e lime."]},{"id":"mex09","n":"Tacos di pesce","c":"mex","d":2,"t":30,"m":"c","s":"Pesce bianco speziato, cavolo croccante e salsa allo yogurt e lime.","i":["400 g|pesce bianco (merluzzo o tilapia)","8|tortillas di mais","200 g|cavolo cappuccio","100 g|yogurt greco","1|lime","1 cucchiaino|paprika","1 cucchiaino|cumino","2 cucchiai|olio di semi","q.b.|sale"],"p":["Condisci il pesce con spezie, sale e olio.","Cuocilo in padella 3 minuti per lato e spezzettalo.","Mescola yogurt, lime e sale per la salsa.","Farcisci le tortillas con cavolo a julienne, pesce e salsa."]},{"id":"mex10","n":"Chilaquiles rojos","c":"mex","d":2,"t":25,"m":"p","s":"Tortilla chips ammorbidite in salsa rossa, con uovo e formaggio. Brunch messicano.","i":["150 g|tortilla chips","400 g|pomodori pelati","1/2|cipolla","1 spicchio|aglio","1|chipotle o jalapeño","2|uova","60 g|formaggio fresco","50 ml|panna acida","1 ciuffo|coriandolo"],"p":["Frulla pomodori, cipolla, aglio e peperoncino e cuoci la salsa 10 minuti.","Aggiungi le chips alla salsa e mescola per 1 minuto, devono restare un po' croccanti.","Friggi le uova.","Servi chips con uovo, formaggio, panna acida e coriandolo."]},{"id":"jap01","n":"Salmone teriyaki con riso","c":"jap","d":1,"t":25,"m":"c","s":"Salmone laccato in salsa dolce-salata, riso e verdure. Cena facile e completa.","i":["2|filetti di salmone","150 g|riso giapponese","3 cucchiai|salsa di soia","2 cucchiai|mirin","1 cucchiaio|zucchero","1 cucchiaio|sake (facoltativo)","200 g|broccoli o pak choi","1 cucchiaio|olio di semi","q.b.|semi di sesamo"],"p":["Cuoci il riso.","Mescola soia, mirin, zucchero e sake.","Rosola il salmone in padella 3 minuti dal lato della pelle e 2 dall'altro.","Versa la salsa e lascia caramellare 1 minuto. Servi con riso, verdure al vapore e sesamo."]},{"id":"jap02","n":"Oyakodon","c":"jap","d":2,"t":25,"m":"p","s":"Ciotola di riso con pollo e uova cotte nel brodo dashi. Il nome significa genitore e figlio.","i":["150 g|riso giapponese","1|petto o sovracoscia di pollo","1|cipolla","3|uova","150 ml|dashi","2 cucchiai|salsa di soia","1 cucchiaio|mirin","1 cucchiaino|zucchero","2|cipollotti"],"p":["Cuoci il riso.","In una padellina scalda dashi, soia, mirin e zucchero con la cipolla a fettine.","Aggiungi il pollo a pezzetti e cuoci 6 minuti.","Versa le uova sbattute leggermente, copri e cuoci 1 minuto: devono restare morbide. Versa sul riso con cipollotto."]},{"id":"jap03","n":"Tonkatsu","c":"jap","d":3,"t":40,"m":"c","s":"Cotoletta di maiale impanata nel panko, con cavolo crudo e salsa tonkatsu.","i":["2|braciole di lonza di maiale","80 g|panko","1|uovo","3 cucchiai|farina","200 g|cavolo cappuccio","150 g|riso giapponese","q.b.|salsa tonkatsu","olio per friggere|olio di semi","q.b.|sale"],"p":["Batti leggermente la carne, sala e pepa.","Passala in farina, uovo e panko.","Friggi in olio a 170°C per 3-4 minuti per lato, poi lasciala riposare su carta.","Taglia a strisce e servi con cavolo a julienne, riso e salsa tonkatsu."]},{"id":"jap04","n":"Yakisoba","c":"jap","d":2,"t":20,"m":"p","s":"Noodles saltati in padella con maiale o pollo, cavolo e salsa yakisoba.","i":["2 porzioni|noodles per yakisoba o ramen","150 g|maiale o pollo a striscioline","150 g|cavolo cappuccio","1|carota","1/2|cipolla","3 cucchiai|salsa worcestershire","1 cucchiaio|ketchup","1 cucchiaio|salsa di soia","1 cucchiaio|olio di semi"],"p":["Mescola worcestershire, ketchup e soia per la salsa.","Salta la carne nell'olio, poi aggiungi verdure a listarelle per 3 minuti.","Aggiungi i noodles già scottati e la salsa.","Salta 2 minuti a fuoco alto finché tutto è ben condito."]},{"id":"jap05","n":"Gyudon","c":"jap","d":1,"t":20,"m":"p","s":"Fettine sottili di manzo e cipolla cotte dolcemente e servite su riso.","i":["250 g|manzo affettato sottile","1|cipolla","150 g|riso giapponese","150 ml|dashi","3 cucchiai|salsa di soia","2 cucchiai|mirin","1 cucchiaio|zucchero","q.b.|zenzero marinato"],"p":["Cuoci il riso.","Porta a bollore dashi, soia, mirin e zucchero con la cipolla a fettine e cuoci 5 minuti.","Aggiungi il manzo e cuoci 2 minuti, schiumando.","Versa sul riso e servi con zenzero marinato."]},{"id":"jap06","n":"Pollo karaage","c":"jap","d":3,"t":45,"m":"c","s":"Bocconcini di pollo marinati e fritti, croccanti fuori e succosi dentro.","i":["500 g|sovracosce di pollo disossate","3 cucchiai|salsa di soia","1 cucchiaio|sake","1 cucchiaino|zenzero grattugiato","1 spicchio|aglio","5 cucchiai|fecola di patate","1|limone","olio per friggere|olio di semi"],"p":["Taglia il pollo a bocconi e marinalo con soia, sake, zenzero e aglio per 20 minuti.","Passalo nella fecola.","Friggi a 170°C per 3 minuti, fai riposare 3 minuti, poi rifriggi 1 minuto a fuoco più alto per la croccantezza.","Servi con spicchi di limone e maionese giapponese."]},{"id":"jap07","n":"Kake udon","c":"jap","d":1,"t":20,"m":"p","s":"Udon in brodo caldo di dashi e soia. Il pranzo più semplice del Giappone.","i":["2 porzioni|udon","700 ml|dashi","3 cucchiai|salsa di soia","2 cucchiai|mirin","2|cipollotti","q.b.|tempura flakes o alga nori","q.b.|shichimi togarashi"],"p":["Porta a bollore dashi, soia e mirin.","Cuoci gli udon a parte secondo la confezione e scolali.","Metti gli udon nelle ciotole e copri col brodo.","Guarnisci con cipollotto, nori e shichimi. Puoi aggiungere un uovo morbido."]},{"id":"jap08","n":"Curry giapponese","c":"jap","d":2,"t":45,"m":"c","s":"Curry denso e dolce con patate e carote. Si usano i panetti di curry già pronti.","i":["300 g|pollo o manzo","1|cipolla","2|carote","2|patate","100 g|panetti di curry giapponese","600 ml|acqua","150 g|riso giapponese","1 cucchiaio|olio di semi"],"p":["Rosola la carne e la cipolla nell'olio.","Aggiungi carote e patate a pezzi e l'acqua, cuoci 20 minuti.","Spegni, sciogli i panetti di curry mescolando, poi cuoci altri 5 minuti finché si addensa.","Servi con riso bianco."]},{"id":"jap09","n":"Onigiri e zuppa di miso","c":"jap","d":2,"t":30,"m":"p","s":"Triangoli di riso con salmone e una zuppa di miso con tofu. Pranzo leggero da bento.","i":["200 g|riso giapponese","1|filetto di salmone","2 fogli|alga nori","600 ml|dashi","2 cucchiai|pasta di miso","150 g|tofu morbido","1 cucchiaio|alghe wakame secche","2|cipollotti","q.b.|sale"],"p":["Cuoci il riso. Cuoci il salmone in forno o padella e sbriciolalo.","Con le mani bagnate e salate forma triangoli di riso con un cuore di salmone, avvolgi con una striscia di nori.","Scalda il dashi senza farlo bollire, sciogli il miso, aggiungi tofu a dadini e wakame.","Servi la zuppa con cipollotto accanto agli onigiri."]},{"id":"jap10","n":"Okonomiyaki","c":"jap","d":3,"t":35,"m":"c","s":"Frittella di cavolo di Osaka con pancetta, salsa okonomiyaki e maionese.","i":["150 g|farina","150 ml|dashi o acqua","2|uova","300 g|cavolo cappuccio","100 g|pancetta a fette","2|cipollotti","q.b.|salsa okonomiyaki","q.b.|maionese giapponese","q.b.|katsuobushi (facoltativo)","1 cucchiaio|olio di semi"],"p":["Mescola farina, dashi e uova, poi aggiungi cavolo tritato finemente e cipollotto.","Versa metà dell'impasto in padella oliata formando un disco spesso, copri con fette di pancetta.","Cuoci 5 minuti, gira e cuoci altri 5 minuti a fuoco medio.","Servi con salsa okonomiyaki, maionese a righe e katsuobushi."]},{"id":"asi01","n":"Pad thai","c":"asi","d":2,"t":30,"m":"c","s":"Noodles di riso saltati con gamberi, uovo, germogli e arachidi. Il classico thailandese.","i":["150 g|noodles di riso piatti","200 g|gamberi","2|uova","100 g|germogli di soia","3 cucchiai|salsa di pesce","2 cucchiai|pasta di tamarindo","1 cucchiaio|zucchero di canna","40 g|arachidi tostate","2|cipollotti","1|lime","2 cucchiai|olio di semi"],"p":["Ammolla i noodles in acqua tiepida 20 minuti.","Mescola salsa di pesce, tamarindo e zucchero.","Salta i gamberi nell'olio, spostali di lato e strapazza le uova.","Aggiungi noodles e salsa, salta 2 minuti, poi germogli e cipollotto. Servi con arachidi e lime."]},{"id":"asi02","n":"Riso saltato all'uovo","c":"asi","d":1,"t":20,"m":"p","s":"Fried rice cinese: perfetto per riciclare il riso del giorno prima.","i":["300 g|riso cotto del giorno prima","2|uova","100 g|piselli","1|carota","2|cipollotti","2 cucchiai|salsa di soia","1 cucchiaino|olio di sesamo","2 cucchiai|olio di semi"],"p":["Scalda il wok, strapazza le uova nell'olio e tienile da parte.","Salta carota a dadini e piselli per 3 minuti.","Aggiungi il riso freddo e saltalo a fuoco alto finché è ben caldo.","Unisci uova, soia, olio di sesamo e cipollotto."]},{"id":"asi03","n":"Curry verde thai di pollo","c":"asi","d":2,"t":35,"m":"c","s":"Pollo e verdure nel latte di cocco con pasta di curry verde. Profumato, non troppo difficile.","i":["300 g|petto di pollo","400 ml|latte di cocco","2 cucchiai|pasta di curry verde","1|zucchina o melanzana thai","100 g|fagiolini","1 cucchiaio|salsa di pesce","1 cucchiaino|zucchero di canna","1 ciuffo|basilico thai","150 g|riso jasmine"],"p":["Cuoci il riso jasmine.","Scalda metà latte di cocco con la pasta di curry finché è profumato.","Aggiungi il pollo a pezzi e cuoci 5 minuti, poi il resto del latte di cocco e le verdure.","Cuoci 10 minuti, condisci con salsa di pesce e zucchero e finisci col basilico."]},{"id":"asi04","n":"Bibimbap","c":"asi","d":3,"t":45,"m":"c","s":"Ciotola coreana di riso con verdure saltate, manzo, uovo e gochujang.","i":["150 g|riso","200 g|manzo macinato o a fettine","1|carota","1|zucchina","150 g|spinaci","100 g|germogli di soia","2|uova","2 cucchiai|gochujang","2 cucchiai|salsa di soia","1 cucchiaio|olio di sesamo","1 spicchio|aglio"],"p":["Cuoci il riso.","Rosola il manzo con soia e aglio.","Salta separatamente ogni verdura con un filo di olio di sesamo e sale.","Componi la ciotola: riso, verdure a spicchi, manzo e uovo all'occhio di bue al centro. Servi con gochujang diluito con olio di sesamo."]},{"id":"asi05","n":"Pollo kung pao","c":"asi","d":2,"t":25,"m":"c","s":"Pollo saltato con arachidi e peperoncini secchi in salsa agrodolce. Sichuan semplificato.","i":["400 g|petto o sovracoscia di pollo","50 g|arachidi","6|peperoncini secchi","3|cipollotti","2 spicchi|aglio","1 cucchiaino|zenzero","2 cucchiai|salsa di soia","1 cucchiaio|aceto di riso nero o di riso","1 cucchiaino|zucchero","1 cucchiaino|amido di mais","2 cucchiai|olio di semi"],"p":["Marina il pollo a dadini con 1 cucchiaio di soia e l'amido.","Mescola soia rimanente, aceto e zucchero.","Nel wok caldo soffriggi peperoncini, aglio e zenzero, poi aggiungi il pollo e saltalo 5 minuti.","Aggiungi salsa, arachidi e cipollotto. Servi con riso."]},{"id":"asi06","n":"Noodles freddi al sesamo","c":"asi","d":1,"t":15,"m":"p","s":"Noodles conditi con salsa di sesamo, soia e cetriolo. Pranzo fresco e veloce.","i":["200 g|noodles di grano","3 cucchiai|pasta di sesamo o tahina","2 cucchiai|salsa di soia","1 cucchiaio|aceto di riso","1 cucchiaino|zucchero","1 cucchiaino|olio al peperoncino","1|cetriolo","2|cipollotti"],"p":["Cuoci i noodles, sciacquali in acqua fredda e scolali bene.","Mescola tahina, soia, aceto, zucchero e olio al peperoncino con un goccio d'acqua.","Condisci i noodles con la salsa.","Completa con cetriolo a julienne e cipollotto."]},{"id":"asi07","n":"Insalata di vermicelli vietnamita","c":"asi","d":2,"t":30,"m":"p","s":"Bun con maiale o pollo grigliato, erbe fresche e salsa nuoc cham.","i":["150 g|vermicelli di riso","300 g|maiale o pollo a fettine","2 cucchiai|salsa di pesce","1 cucchiaio|zucchero","1|lime","1 spicchio|aglio","1|peperoncino fresco","1|cetriolo","1|carota","1 ciuffo|menta e coriandolo","40 g|arachidi","1 cucchiaio|olio di semi"],"p":["Marina la carne con 1 cucchiaio di salsa di pesce, mezzo cucchiaio di zucchero e aglio, poi grigliala o saltala.","Cuoci i vermicelli e sciacquali in acqua fredda.","Prepara il nuoc cham: salsa di pesce, lime, zucchero, acqua, aglio e peperoncino.","Componi la ciotola con vermicelli, verdure a julienne, erbe, carne e arachidi, condisci con la salsa."]},{"id":"asi08","n":"Mapo tofu","c":"asi","d":2,"t":25,"m":"c","s":"Tofu morbido in salsa piccante di fagioli e maiale macinato. Intenso e confortante.","i":["400 g|tofu morbido","150 g|maiale macinato","2 cucchiai|doubanjiang (pasta di fave piccante)","2 spicchi|aglio","1 cucchiaino|zenzero","1 cucchiaino|pepe di Sichuan","200 ml|brodo","1 cucchiaino|amido di mais","2|cipollotti","1 cucchiaio|olio di semi"],"p":["Taglia il tofu a cubetti e sbollentalo 2 minuti in acqua salata.","Rosola il maiale, poi aggiungi doubanjiang, aglio e zenzero.","Aggiungi brodo e tofu e cuoci 5 minuti senza rompere il tofu.","Addensa con l'amido sciolto in acqua, completa con pepe di Sichuan e cipollotto. Servi con riso."]},{"id":"asi09","n":"Pad kra pao (pollo al basilico)","c":"asi","d":1,"t":20,"m":"p","s":"Pollo macinato saltato con basilico e peperoncino, uovo fritto e riso. Street food thailandese.","i":["300 g|pollo macinato","3 spicchi|aglio","2|peperoncini freschi","1 cucchiaio|salsa di ostrica","1 cucchiaio|salsa di soia","1 cucchiaino|salsa di pesce","1 cucchiaino|zucchero","1 ciuffo|basilico thai o normale","2|uova","150 g|riso jasmine","2 cucchiai|olio di semi"],"p":["Cuoci il riso.","Pesta aglio e peperoncino e soffriggili nel wok.","Aggiungi il pollo e le salse e salta 5 minuti, poi il basilico.","Friggi le uova in abbondante olio fino a renderle croccanti ai bordi e servi tutto sul riso."]},{"id":"asi10","n":"Bulgogi di manzo","c":"asi","d":2,"t":30,"m":"c","s":"Manzo coreano marinato dolce-salato, cotto in padella e servito con riso e lattuga.","i":["400 g|manzo affettato sottile","3 cucchiai|salsa di soia","1 cucchiaio|zucchero di canna","1|pera (o mela) grattugiata","2 spicchi|aglio","1 cucchiaio|olio di sesamo","1/2|cipolla","2|cipollotti","1 cespo|lattuga","150 g|riso"],"p":["Mescola soia, zucchero, pera, aglio e olio di sesamo e marina il manzo con la cipolla almeno 15 minuti.","Cuoci il riso.","Salta il manzo in padella molto calda 3-4 minuti.","Servi con riso, cipollotto e foglie di lattuga per fare involtini."]},{"id":"mid01","n":"Hummus con pita calda","c":"mid","d":1,"t":15,"m":"p","s":"Crema di ceci e tahina, olio buono e paprika. Con pita, verdure crude e olive.","i":["400 g|ceci in scatola","3 cucchiai|tahina","1|limone","1 spicchio|aglio","3 cucchiai|olio extravergine d'oliva","1 cucchiaino|paprika","2|pita","1|cetriolo","q.b.|sale"],"p":["Frulla ceci, tahina, succo di limone, aglio e sale con un po' di acqua ghiacciata fino a renderla liscia.","Stendi l'hummus nel piatto formando un cratere.","Versa l'olio al centro e spolvera di paprika.","Scalda le pita e servi con cetriolo e olive."]},{"id":"mid02","n":"Shakshuka","c":"mid","d":1,"t":25,"m":"p","s":"Uova cotte in un sugo di pomodoro e peperoni speziato. Da mangiare col pane.","i":["4|uova","400 g|pomodori pelati","1|peperone rosso","1|cipolla","2 spicchi|aglio","1 cucchiaino|cumino","1 cucchiaino|paprika","50 g|feta","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Soffriggi cipolla e peperone a striscioline per 8 minuti, poi aglio e spezie.","Aggiungi i pomodori e cuoci 10 minuti finché il sugo si addensa.","Fai 4 incavi e rompi un uovo in ognuno.","Copri e cuoci 5-6 minuti. Finisci con feta e prezzemolo."]},{"id":"mid03","n":"Falafel con tahina","c":"mid","d":3,"t":45,"m":"c","s":"Polpette di ceci secchi e erbe, fritte e servite in pita. Serve l'ammollo dalla sera prima.","i":["250 g|ceci secchi (in ammollo 12 ore)","1/2|cipolla","2 spicchi|aglio","1 ciuffo|prezzemolo e coriandolo","1 cucchiaino|cumino","1 cucchiaino|coriandolo in polvere","1/2 cucchiaino|bicarbonato","4 cucchiai|tahina","1|limone","4|pita","olio per friggere|olio di semi","q.b.|sale"],"p":["Frulla i ceci ammollati (non cotti) con cipolla, aglio, erbe, spezie e sale fino a una grana fine.","Aggiungi il bicarbonato e forma palline.","Friggi a 175°C per 4 minuti finché sono ben dorate.","Prepara la salsa con tahina, limone, acqua e sale e servi in pita con verdure."]},{"id":"mid04","n":"Shawarma di pollo al forno","c":"mid","d":2,"t":40,"m":"c","s":"Sovracosce marinate con spezie e yogurt, arrostite e servite in piatto o in pita.","i":["600 g|sovracosce di pollo disossate","100 g|yogurt","1|limone","3 spicchi|aglio","2 cucchiaini|cumino","2 cucchiaini|paprika","1 cucchiaino|curcuma","1/2 cucchiaino|cannella","1|cipolla rossa","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Marina il pollo con yogurt, limone, aglio, spezie, olio e sale (almeno 20 minuti, meglio qualche ora).","Disponi in teglia con la cipolla a spicchi.","Cuoci a 220°C per 25-30 minuti, poi passa sotto il grill 3 minuti.","Affetta e servi con riso o pita, insalata e salsa tahina."]},{"id":"mid05","n":"Tabbouleh","c":"mid","d":1,"t":20,"m":"p","s":"Insalata libanese di prezzemolo, bulgur, pomodoro e limone. Freschissima.","i":["50 g|bulgur fine","2 mazzi|prezzemolo","1 ciuffo|menta","3|pomodori","2|cipollotti","1|limone","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Ammolla il bulgur in acqua calda 10 minuti e strizzalo.","Trita finemente prezzemolo e menta, taglia pomodori e cipollotti a dadini piccoli.","Unisci tutto al bulgur.","Condisci con limone, olio e sale. Ottimo con hummus o falafel."]},{"id":"mid06","n":"Mujaddara","c":"mid","d":2,"t":45,"m":"c","s":"Lenticchie e riso con cipolle caramellate croccanti. Povero e buonissimo.","i":["150 g|lenticchie verdi o brune","120 g|riso basmati","3|cipolle","1 cucchiaino|cumino","5 cucchiai|olio extravergine d'oliva","150 g|yogurt","q.b.|sale"],"p":["Cuoci le lenticchie in acqua 15 minuti (devono restare al dente).","Affetta finemente le cipolle e falle dorare lentamente nell'olio per 20-25 minuti finché sono scure e croccanti.","Aggiungi riso, cumino, sale e le lenticchie con la loro acqua (circa 400 ml in tutto) e una parte delle cipolle, cuoci coperto 15 minuti.","Servi con le cipolle croccanti sopra e yogurt."]},{"id":"mid07","n":"Kofta di agnello","c":"mid","d":2,"t":30,"m":"c","s":"Spiedini di carne macinata speziata, grigliati e serviti con yogurt e insalata.","i":["500 g|agnello o manzo macinato","1/2|cipolla","2 spicchi|aglio","1 ciuffo|prezzemolo","1 cucchiaino|cumino","1 cucchiaino|paprika","1/2 cucchiaino|cannella","150 g|yogurt greco","4|pita","q.b.|sale"],"p":["Grattugia la cipolla e strizzala, poi impasta con carne, aglio, prezzemolo, spezie e sale.","Forma salsicciotti allungati, anche su spiedini.","Cuoci in padella-grill o al forno ventilato 10-12 minuti girandoli.","Servi con yogurt all'aglio, pita e insalata di pomodori e cipolla."]},{"id":"mid08","n":"Fattoush","c":"mid","d":1,"t":15,"m":"p","s":"Insalata croccante con pita tostata, verdure e sumac.","i":["2|pita","1|lattuga romana","2|pomodori","1|cetriolo","4|ravanelli","2|cipollotti","1 ciuffo|menta","1|limone","1 cucchiaino|sumac","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Taglia la pita a quadrati e tostala in forno o padella con un filo d'olio.","Taglia tutte le verdure a pezzi.","Condisci con limone, olio, sumac e sale.","Aggiungi la pita all'ultimo momento così resta croccante."]},{"id":"mid09","n":"Zuppa di lenticchie rosse","c":"mid","d":1,"t":30,"m":"p","s":"Shorbat adas: lenticchie rosse, cumino e limone. Vellutata senza panna.","i":["200 g|lenticchie rosse","1|cipolla","1|carota","1 spicchio|aglio","1 cucchiaino|cumino","1 l|brodo vegetale","1|limone","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Soffriggi cipolla, carota e aglio nell'olio.","Aggiungi cumino, lenticchie sciacquate e brodo.","Cuoci 20 minuti finché le lenticchie si sfaldano, poi frulla.","Servi con succo di limone, un filo d'olio e pane tostato."]},{"id":"mid10","n":"Baba ganoush con pita","c":"mid","d":1,"t":45,"m":"p","s":"Crema di melanzane affumicate e tahina. Ottima con un'insalata per un pranzo leggero.","i":["2|melanzane","3 cucchiai|tahina","1|limone","1 spicchio|aglio","3 cucchiai|olio extravergine d'oliva","1 ciuffo|prezzemolo","2|pita","q.b.|sale"],"p":["Bucherella le melanzane e cuocile intere in forno a 220°C per 35-40 minuti (o sulla fiamma del fornello per il gusto affumicato).","Lasciale intiepidire, apri e raccogli la polpa con un cucchiaio.","Schiaccia la polpa con tahina, limone, aglio e sale.","Servi con olio, prezzemolo e pita calda."]},{"id":"gre01","n":"Insalata greca (horiatiki)","c":"gre","d":1,"t":10,"m":"p","s":"Pomodori, cetriolo, cipolla rossa, olive e un bel blocco di feta. Niente lattuga.","i":["3|pomodori","1|cetriolo","1/2|cipolla rossa","1|peperone verde","60 g|olive kalamata","200 g|feta","1 cucchiaino|origano secco","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Taglia pomodori a spicchi, cetriolo a mezzelune, cipolla e peperone ad anelli.","Aggiungi le olive e sala leggermente.","Appoggia la feta intera sopra.","Condisci con origano e abbondante olio. Servi con pane."]},{"id":"gre02","n":"Souvlaki di pollo con tzatziki","c":"gre","d":2,"t":40,"m":"c","s":"Spiedini di pollo al limone e origano, con pita, tzatziki e patate.","i":["500 g|petto di pollo","1|limone","2 spicchi|aglio","1 cucchiaino|origano","200 g|yogurt greco","1/2|cetriolo","1 ciuffo|aneto","4|pita","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Marina il pollo a cubi con limone, aglio, origano, olio e sale per almeno 20 minuti.","Prepara lo tzatziki: cetriolo grattugiato e strizzato, yogurt, aglio, aneto, olio e sale.","Infilza il pollo su spiedini e cuocilo in padella-grill 10-12 minuti.","Servi con pita calda, tzatziki, pomodoro e cipolla."]},{"id":"gre03","n":"Spanakopita","c":"gre","d":3,"t":75,"m":"c","s":"Torta di pasta fillo croccante con spinaci, feta ed erbe.","i":["500 g|spinaci","200 g|feta","2|uova","4|cipollotti","1 ciuffo|aneto","250 g|pasta fillo","80 ml|olio extravergine d'oliva o burro fuso","q.b.|pepe nero"],"p":["Appassisci gli spinaci, strizzali benissimo e tritali.","Mescola con feta sbriciolata, uova, cipollotti, aneto e pepe.","In teglia stendi 6 fogli di fillo spennellando d'olio ognuno, aggiungi il ripieno e copri con altri 6 fogli oliati.","Incidi la superficie a quadrati e cuoci a 180°C per 45 minuti."]},{"id":"gre04","n":"Gemista (pomodori ripieni di riso)","c":"gre","d":2,"t":80,"m":"c","s":"Pomodori e peperoni ripieni di riso alle erbe, cotti in forno con patate.","i":["4|pomodori grandi","2|peperoni","120 g|riso","1|cipolla","1 ciuffo|menta e prezzemolo","2|patate","100 ml|olio extravergine d'oliva","q.b.|sale"],"p":["Taglia la calotta di pomodori e peperoni e svuotali tenendo la polpa dei pomodori.","Frulla la polpa e mescolala con riso crudo, cipolla tritata, erbe, metà dell'olio e sale.","Riempi le verdure per tre quarti, chiudi con la calotta e mettile in teglia con patate a spicchi.","Irrora con l'olio rimasto e cuoci a 190°C per 60-70 minuti."]},{"id":"gre05","n":"Moussaka","c":"gre","d":3,"t":120,"m":"c","s":"Strati di melanzane, ragù alla cannella e besciamella dorata. Piatto da weekend.","i":["2|melanzane","2|patate","400 g|carne macinata (agnello o manzo)","1|cipolla","400 g|pomodori pelati","1/2 cucchiaino|cannella","500 ml|latte","40 g|burro","40 g|farina","1|uovo","60 g|parmigiano o kefalotyri","olio|olio extravergine d'oliva","q.b.|sale"],"p":["Affetta melanzane e patate, spennellale d'olio e arrostiscile in forno a 200°C per 20 minuti.","Cuoci il ragù con cipolla, carne, pomodori e cannella per 25 minuti.","Prepara la besciamella e, fuori dal fuoco, aggiungi uovo e formaggio.","Componi: patate, melanzane, ragù, melanzane, besciamella. Cuoci a 180°C per 45 minuti e lascia riposare 15 minuti."]},{"id":"gre06","n":"Gigantes plaki","c":"gre","d":2,"t":60,"m":"p","s":"Fagioli giganti al forno in sugo di pomodoro e aneto. Con feta e pane.","i":["500 g|fagioli giganti o butter beans in scatola","1|cipolla","1|carota","2 spicchi|aglio","400 g|pomodori pelati","1 ciuffo|aneto e prezzemolo","5 cucchiai|olio extravergine d'oliva","100 g|feta","q.b.|sale"],"p":["Soffriggi cipolla, carota e aglio nell'olio.","Aggiungi pomodori ed erbe e cuoci 10 minuti.","Unisci i fagioli scolati e trasferisci in teglia.","Cuoci a 190°C per 35 minuti finché il sugo si addensa e i bordi si dorano. Servi con feta."]},{"id":"gre07","n":"Avgolemono","c":"gre","d":2,"t":40,"m":"c","s":"Zuppa di pollo e riso legata con uovo e limone. Vellutata e luminosa.","i":["1|petto di pollo","1 l|brodo di pollo","80 g|riso o orzo","2|uova","2|limoni","q.b.|sale","q.b.|pepe nero"],"p":["Cuoci il pollo nel brodo 20 minuti, toglilo e sfilaccialo.","Cuoci il riso nel brodo.","Sbatti uova e succo di limone, poi aggiungi lentamente due mestoli di brodo caldo mescolando.","Fuori dal fuoco versa il composto nella pentola, rimetti il pollo e scalda dolcemente senza bollire."]},{"id":"gre08","n":"Keftedes","c":"gre","d":2,"t":35,"m":"c","s":"Polpette greche alla menta e origano, fritte o al forno, con tzatziki.","i":["500 g|carne macinata","1|cipolla grattugiata","1 fetta|pane ammollato","1|uovo","1 ciuffo|menta","1 cucchiaino|origano","2 cucchiai|farina","200 g|yogurt greco","olio|olio extravergine d'oliva","q.b.|sale"],"p":["Impasta carne, cipolla, pane strizzato, uovo, menta, origano e sale.","Forma polpette leggermente schiacciate e passale nella farina.","Friggile in olio 4 minuti per lato (o cuocile in forno a 200°C per 20 minuti).","Servi con yogurt o tzatziki, limone e insalata."]},{"id":"gre09","n":"Pita gyros di pollo","c":"gre","d":2,"t":30,"m":"p","s":"Il panino di strada greco: pollo speziato, tzatziki, pomodoro, cipolla e patatine.","i":["400 g|sovracosce di pollo","1 cucchiaino|paprika","1 cucchiaino|origano","1/2 cucchiaino|cumino","1|limone","4|pita","1|pomodoro","1/2|cipolla rossa","150 g|tzatziki","2 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Condisci il pollo con spezie, limone, olio e sale.","Cuocilo in padella 6 minuti per lato e taglialo a striscioline.","Scalda le pita.","Farcisci con tzatziki, pollo, pomodoro, cipolla e qualche patatina."]},{"id":"fra01","n":"Omelette alle erbe","c":"fra","d":1,"t":10,"m":"p","s":"Morbida, liscia e arrotolata, con erba cipollina. Con un'insalata verde è un pranzo perfetto.","i":["3|uova","15 g|burro","1 ciuffo|erba cipollina","30 g|gruyère (facoltativo)","q.b.|sale","q.b.|pepe nero"],"p":["Sbatti le uova con sale e pepe.","Sciogli il burro in padella antiaderente a fuoco medio.","Versa le uova e mescola con una spatola muovendo la padella finché sono quasi rapprese.","Aggiungi erbe e formaggio, arrotola l'omelette su se stessa e servila subito."]},{"id":"fra02","n":"Croque monsieur","c":"fra","d":1,"t":20,"m":"p","s":"Toast al prosciutto cotto con besciamella e gruyère gratinato.","i":["4 fette|pan carré","4 fette|prosciutto cotto","120 g|gruyère","200 ml|latte","15 g|burro","15 g|farina","1 cucchiaino|senape di Digione","q.b.|noce moscata"],"p":["Prepara una besciamella veloce con burro, farina e latte, aggiungi noce moscata.","Spalma la senape sul pane, aggiungi prosciutto e un po' di gruyère e chiudi il toast.","Copri la superficie con besciamella e gruyère rimasto.","Cuoci in forno a 220°C per 10 minuti, poi grill 2 minuti."]},{"id":"fra03","n":"Quiche Lorraine","c":"fra","d":2,"t":60,"m":"p","s":"Torta salata di pasta brisée con pancetta e crema all'uovo. Buona anche tiepida.","i":["1 rotolo|pasta brisée","150 g|pancetta a cubetti","3|uova","200 ml|panna","100 ml|latte","80 g|gruyère","q.b.|noce moscata","q.b.|pepe nero"],"p":["Stendi la brisée in una tortiera e bucherella il fondo.","Rosola la pancetta in padella senza olio.","Sbatti uova, panna, latte, formaggio, noce moscata e pepe.","Distribuisci la pancetta sul fondo, versa la crema e cuoci a 180°C per 35-40 minuti."]},{"id":"fra04","n":"Soupe à l'oignon","c":"fra","d":2,"t":75,"m":"c","s":"Cipolle caramellate lentamente in brodo, crostone e gruyère gratinato.","i":["4|cipolle grandi","30 g|burro","1 cucchiaio|farina","1/2 bicchiere|vino bianco","1 l|brodo di manzo","4 fette|baguette","100 g|gruyère","1 rametto|timo","q.b.|sale"],"p":["Affetta finemente le cipolle e cuocile nel burro a fuoco basso per 40 minuti finché sono ambrate.","Aggiungi la farina, poi sfuma col vino.","Versa il brodo e il timo e cuoci 20 minuti.","Versa in ciotole da forno, copri con pane tostato e gruyère e gratina sotto il grill."]},{"id":"fra05","n":"Pollo arrosto con patate","c":"fra","d":2,"t":80,"m":"c","s":"Poulet rôti: pollo intero con burro, limone e timo, patate nel fondo di cottura.","i":["1|pollo intero (1,3 kg)","40 g|burro","1|limone","1 testa|aglio","4 rametti|timo","600 g|patate","2 cucchiai|olio extravergine d'oliva","q.b.|sale","q.b.|pepe nero"],"p":["Asciuga bene il pollo, salalo dentro e fuori e mettici dentro limone, aglio e timo.","Spalma il burro sulla pelle.","Metti in teglia con le patate a pezzi condite con olio e sale.","Cuoci a 210°C per circa 60-70 minuti, bagnando col fondo. Lascia riposare 10 minuti prima di tagliare."]},{"id":"fra06","n":"Ratatouille","c":"fra","d":2,"t":60,"m":"c","s":"Verdure estive stufate con erbe di Provenza. Contorno o piatto unico con pane o riso.","i":["1|melanzana","2|zucchine","2|peperoni","1|cipolla","2 spicchi|aglio","400 g|pomodori","1 cucchiaino|erbe di Provenza","5 cucchiai|olio extravergine d'oliva","1 ciuffo|basilico","q.b.|sale"],"p":["Taglia tutte le verdure a cubetti simili.","Rosola melanzane, zucchine e peperoni separatamente in padella con olio.","In una pentola soffriggi cipolla e aglio, aggiungi pomodori ed erbe.","Unisci le verdure e cuoci a fuoco basso 30 minuti. Finisci col basilico."]},{"id":"fra07","n":"Cozze alla marinara (moules marinières)","c":"fra","d":2,"t":25,"m":"c","s":"Cozze al vino bianco, scalogno e prezzemolo. Con patatine o baguette per la scarpetta.","i":["1 kg|cozze","2|scalogni","2 spicchi|aglio","1 bicchiere|vino bianco secco","30 g|burro","1 ciuffo|prezzemolo","1|baguette"],"p":["Pulisci bene le cozze eliminando il bisso.","Soffriggi scalogno e aglio nel burro.","Aggiungi cozze e vino, copri e cuoci a fuoco alto 5-6 minuti finché si aprono.","Cospargi di prezzemolo e servi col sugo e il pane."]},{"id":"fra08","n":"Salade niçoise","c":"fra","d":1,"t":25,"m":"p","s":"Tonno, uova sode, fagiolini, patate, pomodori e olive. Pranzo completo in un piatto.","i":["160 g|tonno sott'olio","2|uova","150 g|fagiolini","2|patate piccole","2|pomodori","40 g|olive nere","4|filetti di acciuga","1 cucchiaino|senape di Digione","1 cucchiaio|aceto di vino","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Lessa patate (15 minuti), fagiolini (5 minuti) e uova (9 minuti).","Prepara la vinaigrette con senape, aceto, olio e sale.","Disponi nel piatto patate, fagiolini, pomodori, tonno, uova a spicchi, olive e acciughe.","Condisci con la vinaigrette."]},{"id":"fra09","n":"Steak frites","c":"fra","d":2,"t":40,"m":"c","s":"Bistecca in padella con burro all'aglio e patatine al forno croccanti.","i":["2|bistecche (entrecôte o controfiletto)","600 g|patate","30 g|burro","1 spicchio|aglio","1 rametto|timo","3 cucchiai|olio di semi","q.b.|sale","q.b.|pepe nero"],"p":["Taglia le patate a bastoncini, condiscile con olio e sale e cuocile a 220°C per 30-35 minuti girandole.","Togli le bistecche dal frigo 20 minuti prima e salale.","Scotta in padella rovente 2-3 minuti per lato, poi aggiungi burro, aglio e timo e bagnale col burro.","Lasciale riposare 5 minuti e servi con le patate e senape."]},{"id":"fra10","n":"Coq au vin","c":"fra","d":3,"t":120,"m":"c","s":"Pollo brasato nel vino rosso con pancetta, funghi e cipolline. Classico da domenica.","i":["6|pezzi di pollo (cosce e sovracosce)","150 g|pancetta","200 g|funghi","200 g|cipolline","2 spicchi|aglio","500 ml|vino rosso","200 ml|brodo","1 cucchiaio|farina","1 rametto|timo","1|foglia di alloro","20 g|burro","q.b.|sale"],"p":["Rosola la pancetta, toglila e nello stesso grasso rosola il pollo su tutti i lati.","Aggiungi aglio e farina, poi vino, brodo, timo e alloro, rimetti la pancetta.","Copri e cuoci a fuoco basso 1 ora.","Rosola funghi e cipolline nel burro e aggiungili negli ultimi 20 minuti. Servi con purè o pane."]},{"id":"spa01","n":"Tortilla de patatas","c":"spa","d":2,"t":40,"m":"pc","s":"Frittata spessa di patate e cipolla, morbida al centro. Pranzo, cena o tapa.","i":["500 g|patate","1|cipolla","6|uova","200 ml|olio extravergine d'oliva","q.b.|sale"],"p":["Affetta sottili patate e cipolla e cuocile lentamente nell'olio a fuoco medio-basso per 20 minuti, devono ammorbidirsi senza dorare.","Scolale dall'olio e uniscile alle uova sbattute con sale, lascia riposare 5 minuti.","Versa in padella con un cucchiaio d'olio e cuoci 4 minuti a fuoco medio.","Gira con un piatto e cuoci altri 2-3 minuti. Deve restare morbida dentro."]},{"id":"spa02","n":"Gazpacho","c":"spa","d":1,"t":15,"m":"p","s":"Zuppa fredda di pomodoro, peperone e cetriolo. Si fa nel frullatore.","i":["800 g|pomodori maturi","1/2|peperone verde","1/2|cetriolo","1 spicchio|aglio","1 fetta|pane raffermo","2 cucchiai|aceto di sherry","60 ml|olio extravergine d'oliva","q.b.|sale"],"p":["Taglia grossolanamente le verdure e ammolla il pane in acqua.","Frulla tutto con aceto e sale, aggiungi l'olio a filo continuando a frullare.","Passa al colino se lo vuoi liscissimo.","Lascia in frigo almeno 1 ora e servi con dadini di verdure e crostini."]},{"id":"spa03","n":"Gambas al ajillo","c":"spa","d":1,"t":15,"m":"c","s":"Gamberi sfrigolanti in olio, aglio e peperoncino. Da servire col pane per il sugo.","i":["400 g|gamberi sgusciati","5 spicchi|aglio","1|peperoncino secco","100 ml|olio extravergine d'oliva","1 ciuffo|prezzemolo","1 cucchiaino|paprika","1|baguette","q.b.|sale"],"p":["Scalda l'olio con aglio a fettine e peperoncino a fuoco medio.","Quando l'aglio inizia a dorare aggiungi i gamberi salati.","Cuoci 2-3 minuti finché sono rosa, aggiungi paprika e prezzemolo.","Servi subito nel tegame con il pane."]},{"id":"spa04","n":"Pan con tomate e jamón","c":"spa","d":1,"t":10,"m":"p","s":"Pane tostato strofinato con pomodoro, olio e prosciutto. Pranzo da tapas.","i":["4 fette|pane rustico o ciabatta","2|pomodori maturi","1 spicchio|aglio","100 g|jamón serrano o prosciutto crudo","50 g|manchego","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Tosta il pane.","Strofina leggermente l'aglio, poi grattugia i pomodori e spalma la polpa sul pane.","Condisci con olio e sale.","Servi con jamón, manchego e olive."]},{"id":"spa05","n":"Paella mista","c":"spa","d":3,"t":60,"m":"c","s":"Riso allo zafferano con pollo, gamberi e verdure, con la crosticina sul fondo (socarrat).","i":["200 g|riso bomba o carnaroli","300 g|sovracosce di pollo","200 g|gamberi","100 g|piselli o fagiolini","1|peperone rosso","2|pomodori","2 spicchi|aglio","1 bustina|zafferano","1 cucchiaino|paprika dolce","700 ml|brodo","4 cucchiai|olio extravergine d'oliva","1|limone","q.b.|sale"],"p":["Rosola il pollo a pezzi nella padella larga, poi peperone e aglio.","Aggiungi pomodoro grattugiato e paprika, poi il riso e mescola.","Versa il brodo caldo con lo zafferano, distribuisci il riso e da qui non mescolare più. Cuoci 18 minuti aggiungendo piselli e gamberi a metà.","Alza il fuoco gli ultimi 2 minuti per il socarrat, copri con un canovaccio 5 minuti e servi con limone."]},{"id":"spa06","n":"Patatas bravas","c":"spa","d":2,"t":40,"m":"c","s":"Patate croccanti con salsa piccante alla paprika e alioli. Tapa da cena con amici.","i":["600 g|patate","1 cucchiaio|paprika affumicata","1/2 cucchiaino|peperoncino in polvere","1 cucchiaio|farina","250 ml|brodo","2 cucchiai|maionese","1 spicchio|aglio","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Taglia le patate a cubi, lessale 5 minuti, scolale e arrostiscile in forno a 220°C con olio e sale per 30 minuti.","Per la salsa scalda un po' d'olio con farina, paprika e peperoncino, aggiungi il brodo e cuoci finché si addensa.","Mescola maionese e aglio grattugiato per un alioli veloce.","Servi le patate con le due salse sopra."]},{"id":"spa07","n":"Pollo al ajillo","c":"spa","d":2,"t":40,"m":"c","s":"Pollo rosolato con tanto aglio e vino bianco. Rustico e saporito.","i":["600 g|sovracosce di pollo","10 spicchi|aglio","1 bicchiere|vino bianco","1|foglia di alloro","1 ciuffo|prezzemolo","5 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Sala il pollo e rosolalo nell'olio finché è dorato.","Aggiungi gli spicchi d'aglio interi leggermente schiacciati e l'alloro.","Sfuma col vino, copri e cuoci a fuoco basso 25 minuti.","Scopri, fai restringere il fondo e finisci col prezzemolo."]},{"id":"spa08","n":"Albóndigas in salsa di pomodoro","c":"spa","d":2,"t":45,"m":"c","s":"Polpette spagnole in salsa di pomodoro e paprika. Ottime con pane o riso.","i":["500 g|carne macinata mista","1|uovo","1 fetta|pane ammollato nel latte","2 spicchi|aglio","1 ciuffo|prezzemolo","1|cipolla","400 g|pomodori pelati","1 cucchiaino|paprika affumicata","1/2 bicchiere|vino bianco","3 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Impasta carne, uovo, pane strizzato, aglio, prezzemolo e sale e forma polpette.","Rosolale nell'olio e toglile.","Nella stessa padella soffriggi la cipolla, sfuma col vino, aggiungi pomodori e paprika.","Rimetti le polpette e cuoci coperto 20 minuti."]},{"id":"spa09","n":"Huevos rotos","c":"spa","d":1,"t":25,"m":"p","s":"Patatine in padella con uova fritte rotte sopra e jamón o chorizo.","i":["400 g|patate","4|uova","80 g|jamón serrano o chorizo","1 spicchio|aglio","olio|olio extravergine d'oliva","q.b.|sale","q.b.|paprika"],"p":["Taglia le patate a fette spesse o bastoncini e friggile in padella con olio abbondante finché dorate.","Scola le patate e mettile nel piatto con il jamón.","Friggi le uova lasciando il tuorlo liquido.","Appoggia le uova sulle patate e rompile al tavolo. Un pizzico di paprika e sale."]},{"id":"spa10","n":"Espinacas con garbanzos","c":"spa","d":1,"t":25,"m":"p","s":"Spinaci e ceci con cumino, paprika e pane fritto. Tapa sivigliana, pranzo completo.","i":["400 g|ceci in scatola","300 g|spinaci","2 spicchi|aglio","1 fetta|pane","1 cucchiaino|cumino","1 cucchiaino|paprika affumicata","1 cucchiaio|aceto di sherry","4 cucchiai|olio extravergine d'oliva","q.b.|sale"],"p":["Friggi il pane e l'aglio nell'olio finché dorati, poi pestali con cumino, paprika e aceto.","Nella stessa padella appassisci gli spinaci.","Aggiungi ceci, la pasta di pane e un po' d'acqua, cuoci 8 minuti.","Regola di sale e servi con pane tostato."]}];
+const PLACES = [{"n":"Via Carota","cat":"ita","hood":"West Village","addr":"51 Grove St","price":"$$$","rating":"9.5","order":"Cacio e pepe, svizzerina (hamburger di manzo tritato al coltello), carciofi alla griglia","why":"La trattoria simbolo del West Village: cucina italiana semplice e precisissima.","tip":"Quasi solo walk-in: lasci il nome dalle 17, attese anche di 1-3 ore. Aspetta con uno spritz al Bar Pisellino di fronte.","url":"https://www.theinfatuation.com/new-york/reviews/via-carota"},{"n":"Emilio's Ballato","cat":"ita","hood":"Nolita","addr":"55 E Houston St","price":"$$$$","rating":"8.8","order":"Tagliatelle alla bolognese, chicken parm, spaghetti e polpette","why":"Sala old school italo-americana: i classici al sugo rosso fatti bene, e l'atmosfera fa parte dello spettacolo.","url":"https://www.theinfatuation.com/new-york/reviews/emilios-ballato"},{"n":"Carnitas Ramirez","cat":"mex","hood":"East Village","addr":"210 E 3rd St","price":"$","rating":"9.1","order":"Taco surtido, taco di lengua, salsa verde e cipolle marinate su tutto","why":"Minuscola taqueria che fa una cosa sola, le carnitas stile Michoacán, ai massimi livelli in città.","url":"https://www.theinfatuation.com/new-york/reviews/carnitas-ramirez"},{"n":"Quique Crudo","cat":"mex","hood":"West Village","addr":"27 Bedford St","price":"$$","rating":"8.3","order":"Tostada di granchio, ceviche di fluke, margarita classico","why":"Piccolo e luminoso, pesce crudo messicano pulito e ottimi margarita, piatti intorno ai 25 dollari.","url":"https://www.theinfatuation.com/new-york/reviews/quique-crudo"},{"n":"Rosella","cat":"jap","hood":"East Village","addr":"137 Avenue A","price":"$$$","rating":"8.8","order":"Chirashi, nigiri di salmerino e tonno rosso, spicy avocado roll","why":"Sushi rilassato alla carta con pesce americano, circa 50 dollari a testa senza bisogno di omakase.","tip":"L'omakase non c'è più: si ordina alla carta.","url":"https://www.theinfatuation.com/new-york/reviews/rosella"},{"n":"Sushi Katsuei","cat":"jap","hood":"West Village","addr":"357 6th Ave","price":"$$$","rating":"8.4","order":"Omakase base con handroll, siediti al banco","why":"Uno degli omakase al banco con il miglior rapporto qualità prezzo downtown: nigiri tradizionali serviti uno alla volta.","url":"https://www.theinfatuation.com/new-york/reviews/sushi-katsuei-west-village"},{"n":"Thai Diner","cat":"asi","hood":"Nolita","addr":"186 Mott St","price":"$$","rating":"9.6","order":"Khao soi, Thai Diner egg sandwich, french toast di babka al tè thai","why":"Diner thai e americano aperto tutto il giorno, piatti confortanti e il voto più alto di questa lista.","url":"https://www.theinfatuation.com/new-york/reviews/thai-diner"},{"n":"Mắm","cat":"asi","hood":"Chinatown","addr":"70 Forsyth St","price":"$$","rating":"9.4","order":"Bún đậu đặc biệt, tofu fritto con mắm tôm, zuppa di noodles alle vongole (bún hến)","why":"Street food del nord del Vietnam senza compromessi, al confine con il Lower East Side.","tip":"Sapori intensi di gambero fermentato. Se vuoi qualcosa di più delicato: Hanoi House (East Village) per il pho.","url":"https://www.theinfatuation.com/new-york/reviews/mam"},{"n":"Balade","cat":"mid","hood":"East Village","addr":"208 1st Ave","price":"$","rating":"","order":"Manakeesh con kafta, hummus e tabbouleh, kibbeh","why":"Cucina libanese tradizionale e diretta, a prezzi di quartiere (circa 20 dollari a testa).","url":"https://www.theinfatuation.com/new-york/reviews/balade"},{"n":"Ba'al Cafe & Falafel","cat":"mid","hood":"SoHo","addr":"71 Sullivan St","price":"$","rating":"7.9","order":"Piatto di falafel, pita con kofta, cavolfiore bruciacchiato","why":"Banconcino minuscolo con ottimi falafel: il pranzo economico di SoHo.","tip":"Solo due tavoli, meglio da asporto. Alternativa seduti: Cleo (West Village) per il pollo allo spiedo alle 7 spezie.","url":"https://www.theinfatuation.com/new-york/reviews/baal-cafe"},{"n":"Souvlaki GR","cat":"gre","hood":"Lower East Side","addr":"116 Stanton St","price":"$","rating":"8.0","order":"Pita souvlaki, tris di salse con tirokafteri, patatine greche con feta","why":"Souvlaki semplici ed economici in una sala allegra che sembra una taverna delle isole.","url":"https://www.theinfatuation.com/new-york/reviews/souvlaki-gr"},{"n":"Selene","cat":"gre","hood":"SoHo","addr":"23 Grand St","price":"$$$$","rating":"7.7","order":"Piatto di salse mezze, polpo alla griglia, branzino intero (lavraki)","why":"Greco elegante, gemello di Kyma: classici fatti bene, dal saganaki al pesce intero alla griglia.","url":"https://www.theinfatuation.com/new-york/reviews/selene-soho"},{"n":"Le French Diner","cat":"fra","hood":"Lower East Side","addr":"188 Orchard St","price":"$$$","rating":"9.0","order":"Hanger steak, polpo alla griglia con aioli, escargots","why":"Minuscolo bistrot a bancone con classici francesi semplici e fatti benissimo.","url":"https://www.theinfatuation.com/new-york/reviews/le-french-diner"},{"n":"Raoul's","cat":"fra","hood":"SoHo","addr":"180 Prince St","price":"$$$$","rating":"8.7","order":"Steak au poivre, burger au poivre (solo al bar, pochi al giorno), sogliola alla grenobloise","why":"Bistrot storico di SoHo che sembra ancora un evento, tutto ruota attorno allo steak au poivre.","url":"https://www.theinfatuation.com/new-york/reviews/raouls"},{"n":"Eel Bar","cat":"spa","hood":"Lower East Side","addr":"252 Broome St","price":"$$$","rating":"8.6","order":"Gildas, cozze fritte, trota al pil pil","why":"Bar basco vivace dove si cena a piattini e drink.","url":"https://www.theinfatuation.com/new-york/reviews/eel-bar"},{"n":"Tomiño Taberna Gallega","cat":"spa","hood":"Little Italy","addr":"192 Grand St","price":"$$","rating":"8.3","order":"Pan con tomate, arroz negro, gazpacho","why":"Cucina galiziana casalinga, classica e senza fronzoli, perfetta da condividere. A due passi da Nolita.","url":"https://www.theinfatuation.com/new-york/reviews/tomino-taberna-gallega"},{"n":"Employees Only","cat":"bar","hood":"West Village","addr":"510 Hudson St","price":"$$$","rating":"","order":"Manhattan, costolette d'agnello avvolte nel bacon","why":"Istituzione dei cocktail, energia alta e classici miscelati a regola d'arte.","url":"https://www.theinfatuation.com/new-york/reviews/employees-only"},{"n":"Bar Pisellino","cat":"bar","hood":"West Village","addr":"52 Grove St","price":"$$","rating":"","order":"Aperol spritz alla spina, espresso, arancini","why":"Piccolo bar all'italiana davanti a Via Carota: aperitivo prima di cena o mentre aspetti il tavolo.","tip":"Alternativa vino naturale con cucina seria: Wildair (Lower East Side).","url":"https://www.theinfatuation.com/new-york/reviews/bar-pisellino"}];
+const PLACES_UPDATED = "ottobre 2026";
+
+const CUISINES = {
+  ita:{l:"Italiana",e:"🇮🇹"}, mex:{l:"Messicana",e:"🇲🇽"}, jap:{l:"Giapponese",e:"🇯🇵"},
+  asi:{l:"Asiatica",e:"🥢"}, mid:{l:"Mediorientale",e:"🧆"}, gre:{l:"Greca",e:"🇬🇷"},
+  fra:{l:"Francese",e:"🇫🇷"}, spa:{l:"Spagnola",e:"🇪🇸"}
+};
+const PLACE_CATS = Object.assign({}, CUISINES, {bar:{l:"Bar e cocktail",e:"🍸"}});
+const DIFF = {1:"Facile",2:"Media",3:"Impegnativa"};
+const TIMES = [[0,"Qualsiasi"],[20,"≤ 20 min"],[30,"≤ 30 min"],[45,"≤ 45 min"],[60,"≤ 1 ora"]];
+const DAYS = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì"];
+const MONTHS = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+const PANTRY = new Set(["sale","pepe nero","olio extravergine d'oliva","olio di semi","zucchero","farina","acqua","zucchero di canna"]);
+const BY_ID = Object.fromEntries(RECIPES.map(r=>[r.id,r]));
+
+/* ---------- storage ---------- */
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem("csm_"+k); return v===null? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem("csm_"+k, JSON.stringify(v)); }catch(e){} }
+};
+
+const S = {
+  tab: store.get("tab","idea"),
+  filters: store.get("filters",{cuisines:Object.keys(CUISINES),diff:[1,2,3],time:0}),
+  meal: new Date().getHours() < 15 ? "p" : "c",
+  favs: new Set(store.get("favs",[])),
+  cooked: store.get("cooked",{}),
+  week: store.get("week",null),
+  shop: store.get("shop",{}),
+  want: new Set(store.get("want",[])),
+  recent: [],
+  idea: null, alts: [],
+  q: "", rc: "all", onlyFav: false,
+  hood: "Tutti"
+};
+const save = () => {
+  store.set("tab",S.tab); store.set("filters",S.filters); store.set("favs",[...S.favs]);
+  store.set("cooked",S.cooked); store.set("week",S.week); store.set("shop",S.shop); store.set("want",[...S.want]);
+};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const dots = d => `<span class="dots" title="${DIFF[d]}">${[1,2,3].map(i=>`<i class="${i<=d?"f":""}"></i>`).join("")}</span>`;
+const fmtTime = t => t>=60 ? `${Math.floor(t/60)} h${t%60?" "+t%60+"′":""}` : `${t} min`;
+const mealLbl = m => m==="p" ? "Pranzo" : "Cena";
+const daysSince = ts => (Date.now()-ts)/864e5;
+
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove("show"), 1900);
+}
+
+function matches(r, meal, f=S.filters){
+  if(meal && !r.m.includes(meal)) return false;
+  if(!f.cuisines.includes(r.c)) return false;
+  if(!f.diff.includes(r.d)) return false;
+  if(f.time && r.t > f.time) return false;
+  return true;
+}
+
+function weightedPick(pool){
+  // favourites count double, recently cooked count less
+  const w = pool.map(r => {
+    let x = 1;
+    if(S.favs.has(r.id)) x *= 2;
+    const c = S.cooked[r.id];
+    if(c && daysSince(c) < 10) x *= 0.25;
+    return x;
+  });
+  let tot = w.reduce((a,b)=>a+b,0), n = Math.random()*tot;
+  for(let i=0;i<pool.length;i++){ n -= w[i]; if(n<=0) return pool[i]; }
+  return pool[pool.length-1];
+}
+
+/* ---------- idea ---------- */
+function newIdea(){
+  let pool = RECIPES.filter(r => matches(r, S.meal));
+  if(!pool.length){ S.idea = null; S.alts = []; return; }
+  let fresh = pool.filter(r => !S.recent.includes(r.id));
+  if(fresh.length < 3) { S.recent = []; fresh = pool; }
+  const main = weightedPick(fresh);
+  const rest = shuffle(fresh.filter(r => r.id !== main.id));
+  const alts = [];
+  for(const r of rest){ if(alts.length<2 && r.c!==main.c && !alts.some(a=>a.c===r.c)) alts.push(r); }
+  for(const r of rest){ if(alts.length<2 && !alts.includes(r)) alts.push(r); }
+  S.idea = main; S.alts = alts;
+  S.recent.push(main.id, ...alts.map(a=>a.id));
+  S.recent = S.recent.slice(-12);
+}
+
+function viewIdea(){
+  if(!S.idea || !matches(S.idea, S.meal)) newIdea();
+  const f = S.filters;
+  const active = (f.cuisines.length<8?1:0)+(f.diff.length<3?1:0)+(f.time?1:0);
+  const r = S.idea;
+  return `
+  <p class="sub">Non sai cosa cucinare? Te lo dico io.</p>
+  <div class="seg">
+    <button data-act="meal" data-v="p" class="${S.meal==="p"?"on":""}">☀️ Pranzo</button>
+    <button data-act="meal" data-v="c" class="${S.meal==="c"?"on":""}">🌙 Cena</button>
+  </div>
+  ${r ? `
+  <div class="card idea pop">
+    <button class="fav" data-act="fav" data-id="${r.id}" aria-label="Preferito">${S.favs.has(r.id)?"❤️":"🤍"}</button>
+    <div class="kicker">${CUISINES[r.c].e} ${CUISINES[r.c].l} · ${mealLbl(S.meal)}</div>
+    <div class="name">${esc(r.n)}</div>
+    <p>${esc(r.s)}</p>
+    <div class="meta">${dots(r.d)} ${DIFF[r.d]} <span>⏱ ${fmtTime(r.t)}</span>${S.cooked[r.id]?`<span>✓ già fatto</span>`:""}</div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn ghost" data-act="again">🎲 Un'altra</button>
+      <button class="btn primary" data-act="open" data-id="${r.id}">Lo cucino</button>
+    </div>
+  </div>
+  <h3>Oppure</h3>
+  <div class="alts">${S.alts.map(a=>`
+    <button class="card alt" data-act="open" data-id="${a.id}">
+      <small>${CUISINES[a.c].e} ${CUISINES[a.c].l}</small>
+      <div class="n">${esc(a.n)}</div>
+      <small>${DIFF[a.d]} · ${fmtTime(a.t)}</small>
+    </button>`).join("")}</div>
+  ` : `<div class="card empty" style="margin-top:14px">Nessun piatto con questi filtri.<br>Prova ad allargarli qui sotto.</div>`}
+  <details class="card filters" ${active?"":""}>
+    <summary>Filtri <small>${active? active+" attivi" : "tutto incluso"} ▾</small></summary>
+    ${filtersHTML()}
+  </details>`;
+}
+
+function filtersHTML(){
+  const f = S.filters;
+  return `
+    <h3>Cucina</h3>
+    <div class="chips">${Object.entries(CUISINES).map(([k,c])=>`<button class="chip ${f.cuisines.includes(k)?"on":""}" data-act="fc" data-v="${k}">${c.e} ${c.l}</button>`).join("")}</div>
+    <h3>Difficoltà</h3>
+    <div class="chips">${[1,2,3].map(d=>`<button class="chip ${f.diff.includes(d)?"on":""}" data-act="fd" data-v="${d}">${dots(d)} ${DIFF[d]}</button>`).join("")}</div>
+    <h3>Tempo massimo</h3>
+    <div class="chips">${TIMES.map(([v,l])=>`<button class="chip ${f.time===v?"on":""}" data-act="ft" data-v="${v}">${l}</button>`).join("")}</div>
+    <div style="margin-top:14px"><button class="chip" data-act="freset">↺ Azzera filtri</button></div>`;
+}
+
+/* ---------- week ---------- */
+function weekStart(){
+  const d = new Date(); d.setHours(0,0,0,0);
+  const wd = d.getDay(); // 0 Sun
+  if(wd===6) d.setDate(d.getDate()+2);
+  else if(wd===0) d.setDate(d.getDate()+1);
+  else d.setDate(d.getDate()-(wd-1));
+  return d.toISOString().slice(0,10);
+}
+function dayDate(start,i){ const d = new Date(start+"T12:00:00"); d.setDate(d.getDate()+i); return d; }
+
+function chooseFor(meal, dayIdx, week, used){
+  let pool = RECIPES.filter(r => matches(r, meal) && !used.has(r.id));
+  if(!pool.length) pool = RECIPES.filter(r => r.m.includes(meal) && !used.has(r.id));
+  if(meal==="p"){
+    const easy = pool.filter(r => r.d<=2 && r.t<=35);
+    if(easy.length >= 3) pool = easy;
+  }
+  const counts = {}; let hard = 0;
+  week.days.forEach(d => ["p","c"].forEach(m => { const id = d[m] && d[m].id; if(id){ const r = BY_ID[id]; counts[r.c]=(counts[r.c]||0)+1; if(r.d===3) hard++; } }));
+  const today = week.days[dayIdx], prev = week.days[dayIdx-1];
+  const other = today[meal==="p"?"c":"p"];
+  const scored = shuffle(pool).map(r => {
+    let pen = (counts[r.c]||0)*2;
+    if(other && other.id && BY_ID[other.id].c===r.c) pen += 3;
+    if(prev && prev[meal] && prev[meal].id && BY_ID[prev[meal].id].c===r.c) pen += 2;
+    if(r.d===3 && hard>=1) pen += 4;
+    if(r.t > 75) pen += 6; // weekday: keep 2-hour projects (lasagne, moussaka) for the weekend
+    if(S.cooked[r.id] && daysSince(S.cooked[r.id])<10) pen += 2;
+    if(S.favs.has(r.id)) pen -= 1;
+    return [pen + Math.random()*1.5, r];
+  }).sort((a,b)=>a[0]-b[0]);
+  return scored.length ? scored[0][1].id : null;
+}
+
+function genWeek(keepLocks=true){
+  const start = weekStart();
+  const old = S.week && S.week.start===start ? S.week : null;
+  const week = {start, days: DAYS.map((_,i)=>({p:null,c:null}))};
+  const used = new Set();
+  if(old && keepLocks) old.days.forEach((d,i)=>["p","c"].forEach(m=>{ if(d[m] && d[m].lock){ week.days[i][m] = {id:d[m].id, lock:true}; used.add(d[m].id); } }));
+  week.days.forEach((d,i)=>["p","c"].forEach(m=>{
+    if(d[m]) return;
+    const id = chooseFor(m, i, week, used);
+    if(id){ d[m] = {id, lock:false}; used.add(id); }
+  }));
+  S.week = week; S.shop = {}; save();
+}
+
+function swapSlot(i,m){
+  const used = new Set(); S.week.days.forEach(d=>["p","c"].forEach(k=>{ if(d[k]) used.add(d[k].id); }));
+  const old = S.week.days[i][m];
+  S.week.days[i][m] = null;
+  const id = chooseFor(m, i, S.week, used);
+  S.week.days[i][m] = {id: id || (old && old.id), lock:false};
+  save();
+}
+
+function viewWeek(){
+  if(!S.week || S.week.start !== weekStart()) genWeek(false);
+  const w = S.week;
+  const s = dayDate(w.start,0), e = dayDate(w.start,4);
+  const todayIso = new Date(); todayIso.setHours(12,0,0,0);
+  const cuisinesUsed = new Set(); w.days.forEach(d=>["p","c"].forEach(m=>d[m]&&cuisinesUsed.add(BY_ID[d[m].id].c)));
+  return `
+  <p class="sub">${s.getDate()} ${MONTHS[s.getMonth()]} – ${e.getDate()} ${MONTHS[e.getMonth()]} · 5 pranzi e 5 cene · ${cuisinesUsed.size} cucine diverse</p>
+  <div class="row" style="margin-bottom:14px">
+    <button class="btn primary" data-act="regen">🎲 Nuovo menu</button>
+    <button class="btn ghost" data-act="shop">🛒 Lista spesa</button>
+  </div>
+  ${w.days.map((d,i)=>{
+    const dd = dayDate(w.start,i);
+    const isToday = dd.toDateString()===new Date().toDateString();
+    return `<div class="card day ${isToday?"today":""}">
+      <div class="dayhead"><b>${DAYS[i]} ${dd.getDate()}</b>${isToday?"<small>Oggi</small>":""}</div>
+      ${["p","c"].map(m=>{
+        const sl = d[m]; if(!sl) return "";
+        const r = BY_ID[sl.id];
+        return `<div class="slot">
+          <span class="lbl">${mealLbl(m)}</span>
+          <button class="main" data-act="open" data-id="${r.id}">
+            <div class="n">${CUISINES[r.c].e} ${esc(r.n)}</div>
+            <small>${DIFF[r.d]} · ${fmtTime(r.t)}</small>
+          </button>
+          <button class="ico ${sl.lock?"on":""}" data-act="lock" data-i="${i}" data-m="${m}" aria-label="Blocca">${sl.lock?"🔒":"🔓"}</button>
+          <button class="ico" data-act="swap" data-i="${i}" data-m="${m}" aria-label="Cambia">🔄</button>
+        </div>`;}).join("")}
+    </div>`;}).join("")}
+  <p class="note">🔒 blocca i piatti che ti piacciono: “Nuovo menu” cambia solo gli altri. Il menu usa i filtri della scheda Idea, con pranzi più veloci e al massimo una ricetta impegnativa.</p>`;
+}
+
+/* ---------- shopping list ---------- */
+function shopData(){
+  const map = new Map();
+  S.week.days.forEach(d=>["p","c"].forEach(m=>{
+    if(!d[m]) return; const r = BY_ID[d[m].id];
+    r.i.forEach(x=>{
+      const [q,name] = x.split("|"); const key = name.toLowerCase();
+      if(!map.has(key)) map.set(key,{name, qs:[], pantry: PANTRY.has(key) || q==="olio" || q.startsWith("olio per")});
+      if(q && q!=="q.b." && !q.startsWith("olio")) map.get(key).qs.push(q);
+    });
+  }));
+  map.forEach(x => x.qs = sumQty(x.qs));
+  const all = [...map.values()].sort((a,b)=>a.name.localeCompare(b.name,"it"));
+  return {buy: all.filter(x=>!x.pantry), pantry: all.filter(x=>x.pantry)};
+}
+function sumQty(qs){
+  // "5 spicchi" + "2 spicchi" -> "7 spicchi"; "1/2" + "1" -> "1 ½"; ranges and free text stay as they are
+  const units = new Map(), other = [];
+  qs.forEach(q => {
+    const m = q.match(/^(\d+\/\d+|\d+(?:[.,]\d+)?)(?:\s+(.*))?$/);
+    if(!m){ other.push(q); return; }
+    const n = m[1].includes("/") ? m[1].split("/").reduce((a,b)=>a/b) : parseFloat(m[1].replace(",","."));
+    const u = m[2] || "";
+    units.set(u, (units.get(u)||0) + n);
+  });
+  const fmt = n => { const w = Math.floor(n), f = Math.round((n-w)*4)/4; const fr = {0.25:"¼",0.5:"½",0.75:"¾"}[f]||""; return (w?String(w):"") + (w&&fr?" ":"") + fr || "0"; };
+  return [...[...units].map(([u,n]) => (fmt(n)+" "+u).trim()), ...other];
+}
+function shopSheet(){
+  const {buy,pantry} = shopData();
+  const line = x => `<label><input type="checkbox" data-act="shopck" data-k="${esc(x.name)}" ${S.shop[x.name]?"checked":""}><span>${esc(x.name)}</span><span class="q">${esc(x.qs.join(" + "))}</span></label>`;
+  return `<div class="wrap">
+    <h2 style="margin-top:4px">🛒 Lista della spesa</h2>
+    <p class="sub">Per i 10 piatti della settimana, dosi per 2 persone.</p>
+    <div class="card ing">${buy.map(line).join("")}</div>
+    <h3>Probabilmente già in dispensa</h3>
+    <div class="card ing">${pantry.map(line).join("")}</div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn ghost" data-act="shopclear">Deseleziona tutto</button>
+      <button class="btn primary" data-act="shopshare">Condividi lista</button>
+    </div></div>`;
+}
+async function shareShop(){
+  const {buy} = shopData();
+  const txt = "Lista spesa (Che Si Mangia?)\n" + buy.filter(x=>!S.shop[x.name]).map(x=>`• ${x.name}${x.qs.length?" ("+x.qs.join(" + ")+")":""}`).join("\n");
+  try{
+    if(navigator.share){ await navigator.share({text:txt}); return; }
+    await navigator.clipboard.writeText(txt); toast("Lista copiata");
+  }catch(e){ if(e && e.name!=="AbortError"){ try{ await navigator.clipboard.writeText(txt); toast("Lista copiata"); }catch(_){ toast("Impossibile condividere"); } } }
+}
+
+/* ---------- recipes ---------- */
+function viewRecipes(){
+  const q = S.q.trim().toLowerCase();
+  const list = RECIPES.filter(r =>
+    (S.rc==="all" || r.c===S.rc) && (!S.onlyFav || S.favs.has(r.id)) &&
+    (!q || r.n.toLowerCase().includes(q) || r.i.some(x=>x.split("|")[1].toLowerCase().includes(q)))
+  ).sort((a,b)=>a.n.localeCompare(b.n,"it"));
+  return `
+  <p class="sub">${RECIPES.length} classici facili da fare a casa. Cerca per nome o ingrediente.</p>
+  <input class="search" id="q" type="search" placeholder="Es. pollo, ceci, carbonara…" value="${esc(S.q)}" autocomplete="off">
+  <div class="scroll-x" style="margin-top:12px">
+    <button class="chip ${S.onlyFav?"on":""}" data-act="onlyfav">❤️ Preferiti</button>
+    <button class="chip ${S.rc==="all"?"on":""}" data-act="rc" data-v="all">Tutte</button>
+    ${Object.entries(CUISINES).map(([k,c])=>`<button class="chip ${S.rc===k?"on":""}" data-act="rc" data-v="${k}">${c.e} ${c.l}</button>`).join("")}
+  </div>
+  <div class="card list" style="margin-top:12px" id="rlist">${recipeRows(list)}</div>`;
+}
+function recipeRows(list){
+  if(!list.length) return `<div class="empty">Nessuna ricetta trovata.</div>`;
+  return list.map(r=>`<button class="item" data-act="open" data-id="${r.id}">
+    <span class="flag">${CUISINES[r.c].e}</span>
+    <span style="flex:1;min-width:0"><div class="n">${esc(r.n)}${S.favs.has(r.id)?" ❤️":""}</div>
+    <small>${DIFF[r.d]} · ${fmtTime(r.t)} · ${r.m==="pc"?"Pranzo o cena":mealLbl(r.m)}</small></span>
+    ${dots(r.d)}</button>`).join("");
+}
+
+function recipeSheet(id){
+  const r = BY_ID[id];
+  const slots = S.week ? S.week.days.flatMap((d,i)=>["p","c"].map(m=>`<option value="${i}|${m}">${DAYS[i]} · ${mealLbl(m)}</option>`)).join("") : "";
+  return `<div class="wrap">
+    <div class="rhead">
+      <div class="kicker" style="font-size:13px;color:var(--muted)">${CUISINES[r.c].e} ${CUISINES[r.c].l} · ${r.m==="pc"?"Pranzo o cena":mealLbl(r.m)}</div>
+      <div class="name">${esc(r.n)}</div>
+      <p style="margin:0 0 10px">${esc(r.s)}</p>
+      <div class="meta">${dots(r.d)} ${DIFF[r.d]} <span>⏱ ${fmtTime(r.t)}</span><span>👥 per 2 persone</span></div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn ghost" data-act="fav" data-id="${r.id}">${S.favs.has(r.id)?"❤️ Preferito":"🤍 Preferito"}</button>
+      <button class="btn ghost" data-act="cooked" data-id="${r.id}">${S.cooked[r.id]?"✓ Cucinato":"👨‍🍳 L'ho cucinato"}</button>
+    </div>
+    <h3>Ingredienti</h3>
+    <div class="card ing">${r.i.map(x=>{ const [q,n]=x.split("|"); return `<label><input type="checkbox"><span>${esc(n)}</span><span class="q">${esc(q)}</span></label>`; }).join("")}</div>
+    <h3>Procedimento</h3>
+    <ol class="steps">${r.p.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+    ${slots?`<h3>Metti nel menu della settimana</h3>
+    <div class="row"><select class="mini" id="slotSel">${slots}</select><button class="btn primary" data-act="toweek" data-id="${r.id}">Aggiungi</button></div>`:""}
+  </div>`;
+}
+
+/* ---------- places ---------- */
+function viewOut(){
+  const hoods = ["Tutti", ...new Set(PLACES.map(p=>p.hood))];
+  const list = PLACES.filter(p => S.hood==="Tutti" || p.hood===S.hood);
+  const cats = Object.keys(PLACE_CATS).filter(c => list.some(p=>p.cat===c));
+  const want = PLACES.filter(p=>S.want.has(p.n));
+  return `
+  <p class="sub">Quando non hai voglia di cucinare: 2 posti per cucina e 2 bar, tra West Village, SoHo, Nolita, East Village e Lower East Side. Selezione basata sulle recensioni di The Infatuation.</p>
+  <div class="scroll-x">${hoods.map(h=>`<button class="chip ${S.hood===h?"on":""}" data-act="hood" data-v="${esc(h)}">${esc(h)}</button>`).join("")}</div>
+  ${want.length && S.hood==="Tutti" ? `<h2>⭐ Da provare</h2>${want.map(placeCard).join("")}` : ""}
+  ${cats.map(c=>`<h2>${PLACE_CATS[c].e} ${PLACE_CATS[c].l}</h2>${list.filter(p=>p.cat===c).map(placeCard).join("")}`).join("")}
+  ${!list.length?`<div class="card empty">Nessun posto in questa zona.</div>`:""}
+  <p class="note">Selezione aggiornata a ${esc(PLACES_UPDATED)}. Locali e orari cambiano spesso: controlla prima di andare e prenota quando puoi.</p>`;
+}
+function placeCard(p){
+  const maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.n + " " + (p.addr||"") + " New York NY");
+  return `<div class="card place">
+    <div class="top"><div><div class="n">${esc(p.n)}</div><div class="where">📍 ${esc(p.hood)}${p.addr?" · "+esc(p.addr):""}</div></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">${p.rating?`<span class="badge">${esc(p.rating)}</span>`:""}<span style="font-size:13px;color:var(--muted)">${esc(p.price||"")}</span></div></div>
+    <div class="why">${esc(p.why)}</div>
+    ${p.order?`<div class="order">🍽️ <b>Da ordinare:</b> ${esc(p.order)}</div>`:""}
+    ${p.tip?`<div class="where" style="margin-top:8px">💡 ${esc(p.tip)}</div>`:""}
+    <div class="acts">
+      <a href="${maps}" target="_blank" rel="noopener">🗺️ Mappa</a>
+      ${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">📰 Recensione</a>`:""}
+      <button class="ico ${S.want.has(p.n)?"on":""}" style="border:1px solid var(--line);width:44px;height:auto;border-radius:12px" data-act="want" data-v="${esc(p.n)}" aria-label="Da provare">${S.want.has(p.n)?"⭐":"☆"}</button>
+    </div></div>`;
+}
+
+/* ---------- render ---------- */
+function render(){
+  const v = {idea:viewIdea, week:viewWeek, recipes:viewRecipes, out:viewOut}[S.tab] || viewIdea;
+  $("#view").innerHTML = v();
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on", b.dataset.tab===S.tab));
+  const q = $("#q");
+  if(q) q.addEventListener("input", e => {
+    S.q = e.target.value;
+    const ql = S.q.trim().toLowerCase();
+    const list = RECIPES.filter(r => (S.rc==="all"||r.c===S.rc) && (!S.onlyFav||S.favs.has(r.id)) && (!ql || r.n.toLowerCase().includes(ql) || r.i.some(x=>x.split("|")[1].toLowerCase().includes(ql)))).sort((a,b)=>a.n.localeCompare(b.n,"it"));
+    $("#rlist").innerHTML = recipeRows(list);
+  });
+}
+let sheetMode = null;
+function openSheet(html, mode){ sheetMode = mode; const s = $("#sheet"); s.innerHTML = `<div class="grab"></div><button class="close" data-act="close" aria-label="Chiudi">✕</button>` + html; s.scrollTop = 0; s.classList.add("open"); $("#sheetBg").classList.add("open"); }
+function closeSheet(){ $("#sheet").classList.remove("open"); $("#sheetBg").classList.remove("open"); sheetMode = null; }
+function refreshSheet(){ if(sheetMode && sheetMode.startsWith("r:")){ const top=$("#sheet").scrollTop; openSheet(recipeSheet(sheetMode.slice(2)), sheetMode); $("#sheet").scrollTop=top; } }
+
+document.addEventListener("click", e => {
+  const tabBtn = e.target.closest("nav.tabs button");
+  if(tabBtn){ S.tab = tabBtn.dataset.tab; save(); render(); window.scrollTo(0,0); return; }
+  if(e.target.id==="sheetBg"){ closeSheet(); return; }
+  const el = e.target.closest("[data-act]"); if(!el) return;
+  const a = el.dataset.act, v = el.dataset.v, id = el.dataset.id;
+  const f = S.filters;
+  switch(a){
+    case "meal": S.meal = v; newIdea(); render(); break;
+    case "again": newIdea(); render(); break;
+    case "open": openSheet(recipeSheet(id), "r:"+id); break;
+    case "close": closeSheet(); break;
+    case "fav": S.favs.has(id) ? S.favs.delete(id) : S.favs.add(id); save(); render(); refreshSheet(); break;
+    case "cooked": if(S.cooked[id]) delete S.cooked[id]; else { S.cooked[id] = Date.now(); toast("Buon appetito! 🍽️"); } save(); refreshSheet(); render(); break;
+    case "fc": { const i = f.cuisines.indexOf(v); i>=0 ? f.cuisines.splice(i,1) : f.cuisines.push(v); if(!f.cuisines.length){ f.cuisines.push(v); toast("Lascia almeno una cucina"); } save(); newIdea(); render(); $(".filters").open = true; break; }
+    case "fd": { const d = +v, i = f.diff.indexOf(d); i>=0 ? f.diff.splice(i,1) : f.diff.push(d); if(!f.diff.length){ f.diff.push(d); toast("Lascia almeno una difficoltà"); } save(); newIdea(); render(); $(".filters").open = true; break; }
+    case "ft": f.time = +v; save(); newIdea(); render(); $(".filters").open = true; break;
+    case "freset": S.filters = {cuisines:Object.keys(CUISINES),diff:[1,2,3],time:0}; save(); newIdea(); render(); break;
+    case "regen": genWeek(true); render(); toast("Nuovo menu pronto"); break;
+    case "lock": { const sl = S.week.days[+el.dataset.i][el.dataset.m]; sl.lock = !sl.lock; save(); render(); break; }
+    case "swap": swapSlot(+el.dataset.i, el.dataset.m); render(); break;
+    case "shop": openSheet(shopSheet(), "shop"); break;
+    case "shopck": S.shop[el.dataset.k] = el.checked; save(); break;
+    case "shopclear": S.shop = {}; save(); openSheet(shopSheet(), "shop"); break;
+    case "shopshare": shareShop(); break;
+    case "toweek": { const [i,m] = $("#slotSel").value.split("|"); S.week.days[+i][m] = {id, lock:true}; S.shop = {}; save(); render(); toast(`Aggiunto: ${DAYS[+i]} · ${mealLbl(m)}`); break; }
+    case "rc": S.rc = v; render(); break;
+    case "onlyfav": S.onlyFav = !S.onlyFav; render(); break;
+    case "hood": S.hood = v; render(); break;
+    case "want": S.want.has(v) ? S.want.delete(v) : S.want.add(v); save(); render(); break;
+  }
+});
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeSheet(); });
+
+$("#ver").textContent = "v" + VERSION;
+$("#foot").textContent = `Che Si Mangia? · versione ${VERSION}`;
+render();
+</script>
+</body>
+</html>
